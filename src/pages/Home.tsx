@@ -1,0 +1,340 @@
+import { motion, useScroll, useTransform } from 'framer-motion';
+import { useEffect, useState, useRef } from 'react';
+import { ArrowRight, Mountain, TreePine, Waves, Sparkles } from 'lucide-react';
+import { Link } from 'react-router-dom';
+import heroImage from '@/assets/uttarakhand-hero.jpg';
+import forestImage from '@/assets/forest-property-1.jpg';
+import waterfallImage from '@/assets/waterfall-property.jpg';
+import mountainImage from '@/assets/mountain-land.jpg';
+import { Button } from '@/components/ui/button';
+
+const Home = () => {
+  const [displayedText, setDisplayedText] = useState('');
+  const fullText = 'Discover Your Mountain Paradise';
+  const [isTypingComplete, setIsTypingComplete] = useState(false);
+  
+  const sectionRef = useRef<HTMLDivElement>(null);
+  const { scrollYProgress } = useScroll({
+    target: sectionRef,
+    offset: ['start start', 'end start'],
+  });
+
+  const y = useTransform(scrollYProgress, [0, 1], [0, 300]);
+  const opacity = useTransform(scrollYProgress, [0, 0.5], [1, 0]);
+
+  useEffect(() => {
+    let index = 0;
+    const typingInterval = setInterval(() => {
+      if (index <= fullText.length) {
+        setDisplayedText(fullText.slice(0, index));
+        index++;
+      } else {
+        setIsTypingComplete(true);
+        clearInterval(typingInterval);
+      }
+    }, 80);
+
+    return () => clearInterval(typingInterval);
+  }, []);
+
+  const features = [
+    { icon: Mountain, text: 'Himalayan Views', delay: 0.6 },
+    { icon: TreePine, text: 'Forest Retreats', delay: 0.7 },
+    { icon: Waves, text: 'Waterfall Properties', delay: 0.8 },
+    { icon: Sparkles, text: 'Eco-Luxury Living', delay: 0.9 },
+  ];
+
+  const highlights = [
+    {
+      image: forestImage,
+      title: 'Forest Villas',
+      description: 'Premium eco-resorts nestled in pristine Uttarakhand forests',
+    },
+    {
+      image: waterfallImage,
+      title: 'Waterfall Estates',
+      description: 'Exclusive properties near natural waterfalls and streams',
+    },
+    {
+      image: mountainImage,
+      title: 'Mountain Lands',
+      description: 'Strategic land investments with panoramic Himalayan views',
+    },
+  ];
+
+  return (
+    <div className="min-h-screen" ref={sectionRef}>
+      {/* Hero Section */}
+      <section className="relative min-h-screen flex items-center overflow-hidden">
+        {/* Parallax Background */}
+        <motion.div
+          style={{ y }}
+          className="absolute inset-0"
+        >
+          <motion.div
+            initial={{ scale: 1.2 }}
+            animate={{ scale: 1 }}
+            transition={{ duration: 2, ease: 'easeOut' }}
+            className="h-full w-full"
+          >
+            <img
+              src={heroImage}
+              alt="Uttarakhand Mountains"
+              className="w-full h-full object-cover"
+            />
+          </motion.div>
+          <motion.div 
+            style={{ opacity }}
+            className="absolute inset-0 bg-gradient-to-b from-primary/70 via-primary/50 to-background/90"
+          />
+        </motion.div>
+
+        {/* Floating Particles */}
+        <div className="absolute inset-0 overflow-hidden">
+          {[...Array(20)].map((_, i) => (
+            <motion.div
+              key={i}
+              initial={{ 
+                x: Math.random() * window.innerWidth,
+                y: Math.random() * window.innerHeight,
+                opacity: 0 
+              }}
+              animate={{
+                y: [null, Math.random() * -500],
+                opacity: [0, 0.5, 0],
+              }}
+              transition={{
+                duration: Math.random() * 10 + 10,
+                repeat: Infinity,
+                delay: Math.random() * 5,
+              }}
+              className="absolute w-2 h-2 bg-accent rounded-full"
+            />
+          ))}
+        </div>
+
+        {/* Content */}
+        <div className="container mx-auto px-4 relative z-10 pt-32">
+          <div className="max-w-5xl">
+            <motion.div
+              initial={{ opacity: 0, y: 50 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 1, delay: 0.2 }}
+            >
+              <motion.h1 
+                className="text-6xl md:text-8xl lg:text-9xl font-bold text-white mb-6 leading-tight"
+                initial={{ opacity: 0, scale: 0.8 }}
+                animate={{ opacity: 1, scale: 1 }}
+                transition={{ duration: 1 }}
+              >
+                Nextgen Estate
+                <motion.span 
+                  className="block text-accent text-4xl md:text-6xl lg:text-7xl mt-4"
+                  initial={{ opacity: 0, x: -50 }}
+                  animate={{ opacity: 1, x: 0 }}
+                  transition={{ duration: 1, delay: 0.5 }}
+                >
+                  Infra Advisors
+                </motion.span>
+              </motion.h1>
+            </motion.div>
+
+            <motion.div
+              initial={{ opacity: 0, y: 30 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 1, delay: 0.6 }}
+              className="mb-8"
+            >
+              <h2 className="text-3xl md:text-5xl lg:text-6xl font-semibold text-accent min-h-[80px]">
+                {displayedText}
+                {!isTypingComplete && (
+                  <motion.span 
+                    animate={{ opacity: [1, 0] }}
+                    transition={{ duration: 0.8, repeat: Infinity }}
+                    className="text-accent"
+                  >
+                    |
+                  </motion.span>
+                )}
+              </h2>
+            </motion.div>
+
+            <motion.p
+              initial={{ opacity: 0, y: 30 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 1, delay: 0.8 }}
+              className="text-xl md:text-2xl text-white/90 mb-12 max-w-3xl leading-relaxed"
+            >
+              Specializing in premium forest lands, mountain resorts, and eco-luxury properties 
+              across Uttarakhand. Experience nature's finest with strategic investments in 
+              pristine locations near waterfalls, trekking trails, and Himalayan peaks.
+            </motion.p>
+
+            <motion.div
+              initial={{ opacity: 0, y: 30 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 1, delay: 1 }}
+              className="flex flex-wrap gap-6 mb-16"
+            >
+              <Link to="/projects">
+                <Button
+                  size="lg"
+                  className="gradient-gold text-foreground hover:shadow-gold transition-smooth font-semibold text-lg px-10 py-6"
+                >
+                  Explore Properties <ArrowRight className="ml-2" />
+                </Button>
+              </Link>
+              <Link to="/about">
+                <Button
+                  size="lg"
+                  variant="outline"
+                  className="border-2 border-white text-white hover:bg-white hover:text-primary transition-smooth font-semibold text-lg px-10 py-6 backdrop-blur-sm"
+                >
+                  Learn More
+                </Button>
+              </Link>
+            </motion.div>
+
+            {/* Features */}
+            <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+              {features.map((feature, index) => (
+                <motion.div
+                  key={index}
+                  initial={{ opacity: 0, y: 50 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.8, delay: feature.delay }}
+                  whileHover={{ scale: 1.05, y: -10 }}
+                  className="flex flex-col items-center gap-3 bg-white/10 backdrop-blur-md rounded-xl p-6 border border-accent/30"
+                >
+                  <motion.div 
+                    className="p-4 bg-accent rounded-xl"
+                    whileHover={{ rotate: 360 }}
+                    transition={{ duration: 0.6 }}
+                  >
+                    <feature.icon className="w-8 h-8 text-foreground" />
+                  </motion.div>
+                  <span className="text-white font-semibold text-center text-lg">
+                    {feature.text}
+                  </span>
+                </motion.div>
+              ))}
+            </div>
+          </div>
+        </div>
+
+        {/* Scroll Indicator */}
+        <motion.div
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ duration: 1, delay: 1.5 }}
+          className="absolute bottom-12 left-1/2 transform -translate-x-1/2"
+        >
+          <motion.div
+            animate={{ y: [0, 20, 0] }}
+            transition={{ duration: 2, repeat: Infinity }}
+            className="w-8 h-12 border-2 border-accent rounded-full flex justify-center"
+          >
+            <motion.div 
+              animate={{ y: [0, 24, 0], opacity: [1, 0, 1] }}
+              transition={{ duration: 2, repeat: Infinity }}
+              className="w-2 h-4 bg-accent rounded-full mt-2"
+            />
+          </motion.div>
+        </motion.div>
+      </section>
+
+      {/* Highlights Section */}
+      <section className="py-32 bg-background relative overflow-hidden">
+        <motion.div
+          initial={{ opacity: 0 }}
+          whileInView={{ opacity: 0.05 }}
+          viewport={{ once: true }}
+          className="absolute inset-0"
+        >
+          <div className="absolute top-20 right-20 w-96 h-96 bg-primary rounded-full blur-3xl" />
+          <div className="absolute bottom-20 left-20 w-96 h-96 bg-accent rounded-full blur-3xl" />
+        </motion.div>
+
+        <div className="container mx-auto px-4 relative z-10">
+          <motion.div
+            initial={{ opacity: 0, y: 50 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 1 }}
+            className="text-center mb-20"
+          >
+            <h2 className="text-5xl md:text-7xl font-bold text-foreground mb-6">
+              Nature's Finest Investments
+            </h2>
+            <div className="w-32 h-1.5 bg-gradient-gold mx-auto" />
+          </motion.div>
+
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-10">
+            {highlights.map((highlight, index) => (
+              <motion.div
+                key={index}
+                initial={{ opacity: 0, y: 80 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.8, delay: index * 0.2 }}
+                whileHover={{ y: -20, scale: 1.02 }}
+                className="group relative"
+              >
+                <div className="relative h-96 rounded-2xl overflow-hidden shadow-elegant">
+                  <motion.img
+                    whileHover={{ scale: 1.1 }}
+                    transition={{ duration: 0.6 }}
+                    src={highlight.image}
+                    alt={highlight.title}
+                    className="w-full h-full object-cover"
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-primary via-primary/50 to-transparent opacity-80 group-hover:opacity-90 transition-opacity" />
+                  
+                  <div className="absolute bottom-0 left-0 right-0 p-8">
+                    <motion.h3 
+                      className="text-3xl font-bold text-white mb-3"
+                      initial={{ x: -20, opacity: 0 }}
+                      whileInView={{ x: 0, opacity: 1 }}
+                      viewport={{ once: true }}
+                      transition={{ delay: index * 0.2 + 0.3 }}
+                    >
+                      {highlight.title}
+                    </motion.h3>
+                    <motion.p 
+                      className="text-white/90 text-lg"
+                      initial={{ x: -20, opacity: 0 }}
+                      whileInView={{ x: 0, opacity: 1 }}
+                      viewport={{ once: true }}
+                      transition={{ delay: index * 0.2 + 0.4 }}
+                    >
+                      {highlight.description}
+                    </motion.p>
+                  </div>
+                </div>
+              </motion.div>
+            ))}
+          </div>
+
+          <motion.div
+            initial={{ opacity: 0, scale: 0.8 }}
+            whileInView={{ opacity: 1, scale: 1 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.8, delay: 0.6 }}
+            className="text-center mt-20"
+          >
+            <Link to="/projects">
+              <Button
+                size="lg"
+                className="gradient-gold text-foreground hover:shadow-gold transition-smooth font-semibold text-xl px-12 py-6"
+              >
+                View All Properties <ArrowRight className="ml-2" />
+              </Button>
+            </Link>
+          </motion.div>
+        </div>
+      </section>
+    </div>
+  );
+};
+
+export default Home;

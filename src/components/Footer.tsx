@@ -1,20 +1,21 @@
 import { motion } from 'framer-motion';
+import { Link } from 'react-router-dom';
 import { Facebook, Instagram, Linkedin, Twitter, Mail, Phone, MapPin } from 'lucide-react';
 import logo from '@/assets/nextgen-logo.jpeg';
 
 const Footer = () => {
   const quickLinks = [
-    { name: 'Home', id: 'home' },
-    { name: 'About Us', id: 'about' },
-    { name: 'Projects', id: 'projects' },
-    { name: 'Contact', id: 'contact' },
+    { name: 'Home', path: '/' },
+    { name: 'About Us', path: '/about' },
+    { name: 'Projects', path: '/projects' },
+    { name: 'Contact', path: '/contact' },
   ];
 
   const locations = [
-    'Noida',
-    'Yamuna Expressway',
-    'Jim Corbett',
-    'Greater Noida',
+    'Dehradun, Uttarakhand',
+    'Nainital Region',
+    'Mussoorie Hills',
+    'Rishikesh Valley',
   ];
 
   const socialLinks = [
@@ -23,13 +24,6 @@ const Footer = () => {
     { icon: Linkedin, link: '#', name: 'LinkedIn' },
     { icon: Twitter, link: '#', name: 'Twitter' },
   ];
-
-  const scrollToSection = (id: string) => {
-    const element = document.getElementById(id);
-    if (element) {
-      element.scrollIntoView({ behavior: 'smooth' });
-    }
-  };
 
   return (
     <footer className="bg-primary text-primary-foreground relative overflow-hidden">
@@ -50,7 +44,7 @@ const Footer = () => {
           >
             <img src={logo} alt="Nextgen Estate" className="h-20 mb-4 bg-white/10 p-2 rounded-lg" />
             <p className="text-primary-foreground/80 mb-6 leading-relaxed">
-              Your trusted partner for premium real estate across Noida, Yamuna Expressway, and Jim Corbett.
+              Your trusted partner for premium forest lands, mountain estates, and nature properties across Uttarakhand.
             </p>
             <div className="flex gap-4">
               {socialLinks.map((social, index) => (
@@ -79,12 +73,12 @@ const Footer = () => {
             <ul className="space-y-3">
               {quickLinks.map((link, index) => (
                 <li key={index}>
-                  <button
-                    onClick={() => scrollToSection(link.id)}
+                  <Link
+                    to={link.path}
                     className="text-primary-foreground/80 hover:text-accent transition-smooth hover:translate-x-2 inline-block"
                   >
                     {link.name}
-                  </button>
+                  </Link>
                 </li>
               ))}
             </ul>
