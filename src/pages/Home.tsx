@@ -7,6 +7,13 @@ import forestImage from '@/assets/forest-property-1.jpg';
 import waterfallImage from '@/assets/waterfall-property.jpg';
 import mountainImage from '@/assets/mountain-land.jpg';
 import { Button } from '@/components/ui/button';
+import WhyChooseSection from '@/components/home/WhyChooseSection';
+import VisionSection from '@/components/home/VisionSection';
+import StatsSection from '@/components/home/StatsSection';
+import VerificationProcess from '@/components/home/VerificationProcess';
+import LocalExperts from '@/components/home/LocalExperts';
+import CoverageMap from '@/components/home/CoverageMap';
+import Gallery from '@/components/home/Gallery';
 
 const Home = () => {
   const [displayedText, setDisplayedText] = useState('');
@@ -188,7 +195,7 @@ const Home = () => {
                 <Button
                   size="lg"
                   variant="outline"
-                  className="border-2 border-white text-white hover:bg-white hover:text-primary transition-smooth font-semibold text-lg px-10 py-6 backdrop-blur-sm"
+                  className="border-2 border-accent text-accent hover:bg-accent hover:text-foreground transition-smooth font-semibold text-lg px-10 py-6 backdrop-blur-sm bg-background/10"
                 >
                   Learn More
                 </Button>
@@ -333,6 +340,27 @@ const Home = () => {
           </motion.div>
         </div>
       </section>
+
+      {/* Why Choose Nextgen */}
+      <WhyChooseSection />
+
+      {/* Vision Section */}
+      <VisionSection />
+
+      {/* Stats Section */}
+      <StatsSection />
+
+      {/* Verification Process */}
+      <VerificationProcess />
+
+      {/* Local Experts */}
+      <LocalExperts />
+
+      {/* Coverage Map */}
+      <CoverageMap />
+
+      {/* Gallery */}
+      <Gallery />
     </div>
   );
 };
