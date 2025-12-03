@@ -13,7 +13,7 @@ import StatsSection from '@/components/home/StatsSection';
 import VerificationProcess from '@/components/home/VerificationProcess';
 import LocalExperts from '@/components/home/LocalExperts';
 import CoverageMap from '@/components/home/CoverageMap';
-import Gallery from '@/components/home/Gallery';
+
 
 const Home = () => {
   const [displayedText, setDisplayedText] = useState('');
@@ -358,9 +358,6 @@ const Home = () => {
 
       {/* Coverage Map */}
       <CoverageMap />
-
-      {/* Gallery */}
-      <Gallery />
     </div>
   );
 };
