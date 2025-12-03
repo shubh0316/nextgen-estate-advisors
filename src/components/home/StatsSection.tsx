@@ -88,10 +88,10 @@ const StatCard = ({ stat, index }: { stat: any; index: number }) => {
         >
           <stat.icon className="w-8 h-8 text-primary group-hover:text-accent transition-colors" />
         </motion.div>
-        <div className="text-4xl md:text-5xl font-bold text-foreground mb-2">
+        <div className="text-3xl md:text-4xl font-bold text-foreground mb-2 whitespace-nowrap">
           {stat.prefix}{count}{stat.suffix}
         </div>
-        <div className="text-muted-foreground font-medium">{stat.label}</div>
+        <div className="text-muted-foreground font-medium text-sm">{stat.label}</div>
       </div>
     </motion.div>
   );
