@@ -5,7 +5,7 @@ import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Textarea } from '@/components/ui/textarea';
 import { toast } from 'sonner';
-import forestImage from '@/assets/forest-property-1.jpg';
+import forestImage from '@/assets/image4.jpeg';
 
 const Contact = () => {
   const [formData, setFormData] = useState({
@@ -69,8 +69,11 @@ const Contact = () => {
             src={forestImage}
             alt="Contact"
             className="w-full h-full object-cover"
+            style={{
+              filter: 'brightness(1.1) contrast(1.15) saturate(1.2)',
+            }}
           />
-          <div className="absolute inset-0 bg-gradient-to-r from-primary/90 via-primary/70 to-primary/50" />
+          <div className="absolute inset-0 bg-gradient-to-r from-primary/85 via-primary/65 to-primary/45" />
         </motion.div>
 
         <div className="container mx-auto px-4 relative z-10">

@@ -1,14 +1,18 @@
 import { motion } from 'framer-motion';
 import { MapPin, Phone, Mail } from 'lucide-react';
+import { useState, useEffect } from 'react';
 import {
   Carousel,
   CarouselContent,
   CarouselItem,
   CarouselNext,
   CarouselPrevious,
+  type CarouselApi,
 } from '@/components/ui/carousel';
 
 const LocalExperts = () => {
+  const [api, setApi] = useState<CarouselApi>();
+  const [isAutoScrolling, setIsAutoScrolling] = useState(true);
   const experts = [
     {
       name: 'Rajesh Sharma',
@@ -47,6 +51,57 @@ const LocalExperts = () => {
     },
   ];
 
+  // Auto-scroll carousel: alternate direction every 2 seconds
+  useEffect(() => {
+    if (!api || !isAutoScrolling) return;
+
+    let timeoutId: NodeJS.Timeout;
+    let currentDirection: 'left' | 'right' = 'right';
+
+    const scrollAndSwitch = () => {
+      // Scroll in current direction
+      if (currentDirection === 'right') {
+        api.scrollNext();
+      } else {
+        api.scrollPrev();
+      }
+
+      // Switch direction for next scroll
+      currentDirection = currentDirection === 'right' ? 'left' : 'right';
+
+      // Schedule next scroll after 2 seconds
+      timeoutId = setTimeout(scrollAndSwitch, 2000);
+    };
+
+    // Start the first scroll after 2 seconds
+    timeoutId = setTimeout(scrollAndSwitch, 2000);
+
+    return () => {
+      if (timeoutId) {
+        clearTimeout(timeoutId);
+      }
+    };
+  }, [api, isAutoScrolling]);
+
+  // Pause auto-scroll on user interaction
+  useEffect(() => {
+    if (!api) return;
+
+    const handleSelect = () => {
+      // Pause auto-scroll temporarily when user interacts
+      setIsAutoScrolling(false);
+      setTimeout(() => {
+        setIsAutoScrolling(true);
+      }, 4000); // Resume after 4 seconds of no interaction
+    };
+
+    api.on('select', handleSelect);
+
+    return () => {
+      api.off('select', handleSelect);
+    };
+  }, [api]);
+
   return (
     <section className="py-24 bg-background relative overflow-hidden">
       <div className="container mx-auto px-4">
@@ -67,6 +122,7 @@ const LocalExperts = () => {
         </motion.div>
 
         <Carousel
+          setApi={setApi}
           opts={{
             align: 'start',
             loop: true,

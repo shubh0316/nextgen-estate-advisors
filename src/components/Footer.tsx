@@ -42,9 +42,24 @@ const Footer = () => {
             viewport={{ once: true }}
             transition={{ duration: 0.6 }}
           >
-            <img src={logo} alt="Nextgen Estate" className="h-20 mb-4 bg-white/10 p-2 rounded-lg" />
-            <p className="text-primary-foreground/80 mb-6 leading-relaxed">
+            <Link to="/">
+              <motion.div
+                whileHover={{ scale: 1.05 }}
+                transition={{ duration: 0.3 }}
+                className="inline-block"
+              >
+                <img
+                  src={logo}
+                  alt="Nextgen Estate"
+                  className="h-24 w-24 md:h-28 md:w-28 rounded-full object-cover mb-4 shadow-lg"
+                />
+              </motion.div>
+            </Link>
+            <p className="text-primary-foreground/80 mb-4 leading-relaxed">
               Your trusted partner for premium forest lands, mountain estates, and nature properties across Uttarakhand.
+            </p>
+            <p className="text-accent font-semibold text-lg mb-6">
+              Where Vision Meets Value
             </p>
             <div className="flex gap-4">
               {socialLinks.map((social, index) => (
@@ -142,7 +157,7 @@ const Footer = () => {
           className="pt-8 border-t border-primary-foreground/20"
         >
           <div className="flex flex-col md:flex-row justify-between items-center gap-4 text-primary-foreground/60 text-sm">
-            <p>© 2024 Nextgen Estate Infra Advisors Pvt. Ltd. All rights reserved.</p>
+            <p>© 2025 Nextgen Estate Advisors Pvt. Ltd. All rights reserved.</p>
             <div className="flex gap-6">
               <button className="hover:text-accent transition-smooth">Privacy Policy</button>
               <button className="hover:text-accent transition-smooth">Terms of Service</button>

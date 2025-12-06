@@ -1,8 +1,9 @@
 import { motion, useScroll, useTransform } from 'framer-motion';
 import { useRef } from 'react';
-import { Award, Target, Users, TrendingUp, Heart, Shield, MapPin, Sparkles } from 'lucide-react';
-import forestTrekImage from '@/assets/forest-trek.jpg';
+import { Award, Target, Users, TrendingUp, Heart, Shield, MapPin, Sparkles, Quote } from 'lucide-react';
+import forestTrekImage from '@/assets/image2.jpeg';
 import mountainImage from '@/assets/mountain-land.jpg';
+import heroEstateImage from '@/assets/image3.jpg';
 
 const About = () => {
   const sectionRef = useRef<HTMLDivElement>(null);
@@ -80,10 +81,13 @@ const About = () => {
         >
           <img
             src={forestTrekImage}
-            alt="Forest Trek"
+            alt="About Us"
             className="w-full h-full object-cover"
+            style={{
+              filter: 'brightness(1.1) contrast(1.15) saturate(1.2)',
+            }}
           />
-          <div className="absolute inset-0 bg-gradient-to-r from-primary/90 via-primary/70 to-transparent" />
+          <div className="absolute inset-0 bg-gradient-to-r from-primary/85 via-primary/65 to-transparent" />
         </motion.div>
 
         <div className="container mx-auto px-4 relative z-10">
@@ -160,7 +164,7 @@ const About = () => {
                 viewport={{ once: true }}
                 transition={{ duration: 0.8, delay: 0.2 }}
               >
-                Nextgen Estate Infra Advisors Pvt. Ltd. specializes in premium residential, 
+                Nextgen Estate  Advisors Pvt. Ltd. specializes in premium residential, 
                 commercial, and investment properties with a unique focus on Uttarakhand's 
                 natural landscapes.
               </motion.p>
@@ -203,6 +207,121 @@ const About = () => {
                 className="rounded-2xl shadow-elegant w-full h-[600px] object-cover"
               />
               <div className="absolute inset-0 bg-gradient-to-t from-primary/30 to-transparent rounded-2xl" />
+            </motion.div>
+          </div>
+        </div>
+      </section>
+
+      {/* Message from Director Section */}
+      <section className="py-32 bg-muted/50 relative overflow-hidden">
+        <motion.div
+          initial={{ opacity: 0 }}
+          whileInView={{ opacity: 0.03 }}
+          viewport={{ once: true }}
+          className="absolute inset-0"
+        >
+          <div className="absolute top-20 left-20 w-96 h-96 bg-primary rounded-full blur-3xl" />
+          <div className="absolute bottom-20 right-20 w-96 h-96 bg-accent rounded-full blur-3xl" />
+        </motion.div>
+
+        <div className="container mx-auto px-4 relative z-10">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
+            <motion.div
+              initial={{ opacity: 0, x: -100 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 1 }}
+              className="relative"
+            >
+              <motion.img
+                whileHover={{ scale: 1.05 }}
+                transition={{ duration: 0.6 }}
+                src={heroEstateImage}
+                alt="Director"
+                className="rounded-2xl shadow-elegant w-full h-[600px] object-cover"
+              />
+              <div className="absolute inset-0 bg-gradient-to-t from-primary/40 to-transparent rounded-2xl" />
+            </motion.div>
+
+            <motion.div
+              initial={{ opacity: 0, x: 100 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 1 }}
+              className="relative"
+            >
+              <motion.div
+                initial={{ opacity: 0, scale: 0.8 }}
+                whileInView={{ opacity: 1, scale: 1 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.8, delay: 0.2 }}
+                className="mb-6"
+              >
+                <Quote className="w-16 h-16 text-accent opacity-50" />
+              </motion.div>
+
+              <motion.h2 
+                className="text-4xl md:text-5xl font-bold text-foreground mb-6"
+                initial={{ opacity: 0, y: 30 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.8, delay: 0.3 }}
+              >
+                A Message from Our Director
+              </motion.h2>
+
+              <motion.p 
+                className="text-xl text-muted-foreground mb-6 leading-relaxed"
+                initial={{ opacity: 0, y: 30 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.8, delay: 0.4 }}
+              >
+                At Nextgen Estate Advisors, we believe that investing in nature properties is not just 
+                about acquiring land—it's about securing a piece of paradise for generations to come. 
+                Our commitment to Uttarakhand's pristine landscapes drives everything we do.
+              </motion.p>
+
+              <motion.p 
+                className="text-xl text-muted-foreground mb-6 leading-relaxed"
+                initial={{ opacity: 0, y: 30 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.8, delay: 0.5 }}
+              >
+                With over 15 years of experience in the real estate industry, we've built a reputation 
+                for transparency, integrity, and excellence. Every property we recommend undergoes 
+                thorough due diligence, ensuring our clients make informed decisions that align with 
+                their vision and values.
+              </motion.p>
+
+              <motion.p 
+                className="text-xl text-muted-foreground mb-8 leading-relaxed"
+                initial={{ opacity: 0, y: 30 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.8, delay: 0.6 }}
+              >
+                We understand that each client's journey is unique. Whether you're looking for a 
+                mountain retreat, a forest sanctuary, or an investment opportunity, our team is 
+                dedicated to making your dreams a reality while preserving the natural beauty 
+                that makes Uttarakhand special.
+              </motion.p>
+
+              <motion.div
+                initial={{ opacity: 0, y: 30 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.8, delay: 0.7 }}
+                className="border-l-4 border-accent pl-6"
+              >
+                <p className="text-lg font-bold text-foreground mb-1">
+                  — Director, Nextgen Estate Advisors
+                </p>
+                <p className="text-muted-foreground">
+                  Where Vision Meets Value
+                </p>
+              </motion.div>
             </motion.div>
           </div>
         </div>

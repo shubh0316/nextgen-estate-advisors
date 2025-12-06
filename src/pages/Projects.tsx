@@ -1,6 +1,6 @@
 import { motion, useScroll, useTransform } from 'framer-motion';
 import { useRef, useState } from 'react';
-import { TreePine, Mountain, Waves, MapPin, IndianRupee, ArrowRight, Sparkles } from 'lucide-react';
+import { TreePine, Mountain, Waves, MapPin, IndianRupee, ArrowRight, Sparkles, Crown } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import forestProperty from '@/assets/forest-property-1.jpg';
 import waterfallProperty from '@/assets/waterfall-property.jpg';
@@ -9,8 +9,9 @@ import forestTrek from '@/assets/forest-trek.jpg';
 import riversideLand from '@/assets/riverside-land.jpg';
 import hillsideLand from '@/assets/hillside-land.jpg';
 import valleyProperty from '@/assets/valley-property.jpg';
-import heroImage from '@/assets/uttarakhand-hero.jpg';
+import heroImage from '@/assets/image6.jpg';
 import { Button } from '@/components/ui/button';
+import ContactFormModal from '@/components/ContactFormModal';
 
 const Projects = () => {
   const sectionRef = useRef<HTMLDivElement>(null);
@@ -21,9 +22,12 @@ const Projects = () => {
 
   const y = useTransform(scrollYProgress, [0, 1], [100, -100]);
   const [activeCategory, setActiveCategory] = useState('all');
+  const [isContactModalOpen, setIsContactModalOpen] = useState(false);
+  const [selectedPropertyName, setSelectedPropertyName] = useState<string>('');
 
   const categories = [
     { id: 'all', name: 'All Properties', icon: Sparkles },
+    { id: 'exclusive', name: 'Exclusive Properties', icon: Crown },
     { id: 'forest', name: 'Forest Lands', icon: TreePine },
     { id: 'mountain', name: 'Mountain Estates', icon: Mountain },
     { id: 'waterfall', name: 'Waterfall Properties', icon: Waves },
@@ -39,6 +43,7 @@ const Projects = () => {
       image: forestProperty,
       features: ['Eco-Resort', 'Pine Forest', 'Mountain View', '5-10 Acres'],
       description: 'Premium eco-luxury villas nestled in pristine pine forest with panoramic valley views.',
+      isExclusive: true,
     },
     {
       id: 2,
@@ -49,6 +54,7 @@ const Projects = () => {
       image: waterfallProperty,
       features: ['Waterfall View', 'Natural Stream', 'Forest Cover', '3-7 Acres'],
       description: 'Exclusive land parcels near pristine waterfalls, perfect for boutique resorts.',
+      isExclusive: false,
     },
     {
       id: 3,
@@ -59,6 +65,7 @@ const Projects = () => {
       image: mountainLand,
       features: ['Himalayan Views', 'Green Meadows', 'Pine Forest', '2-5 Acres'],
       description: 'Scenic mountain land with breathtaking Himalayan panoramas and lush meadows.',
+      isExclusive: false,
     },
     {
       id: 4,
@@ -69,6 +76,7 @@ const Projects = () => {
       image: forestTrek,
       features: ['Trekking Trails', 'Dense Forest', 'Adventure Hub', '4-8 Acres'],
       description: 'Perfect for adventure resort development with natural trekking paths through forest.',
+      isExclusive: false,
     },
     {
       id: 5,
@@ -79,6 +87,7 @@ const Projects = () => {
       image: riversideLand,
       features: ['River Frontage', 'Mountain Peaks', 'Pristine Water', '5-10 Acres'],
       description: 'Premium riverside property with crystal clear mountain stream and forest cover.',
+      isExclusive: false,
     },
     {
       id: 6,
@@ -89,6 +98,7 @@ const Projects = () => {
       image: hillsideLand,
       features: ['Valley View', 'Winding Roads', 'Forest Cover', '8-15 Acres'],
       description: 'Expansive hillside property perfect for luxury eco-resort development.',
+      isExclusive: false,
     },
     {
       id: 7,
@@ -99,6 +109,7 @@ const Projects = () => {
       image: valleyProperty,
       features: ['Snow Peaks', 'Green Valley', 'Wildflowers', '10-20 Acres'],
       description: 'Pristine valley land with snow-capped peaks, ideal for adventure tourism.',
+      isExclusive: true,
     },
     {
       id: 8,
@@ -109,12 +120,37 @@ const Projects = () => {
       image: forestProperty,
       features: ['Wildlife Corridor', 'Dense Forest', 'Eco-Tourism', '15-30 Acres'],
       description: 'Exclusive forest estate near Corbett, perfect for wildlife-focused eco-resort.',
+      isExclusive: true,
     },
   ];
 
-  const filteredProjects = activeCategory === 'all' 
-    ? projects 
-    : projects.filter(p => p.category === activeCategory);
+  // Filter and sort projects based on category
+  const filteredProjects = (() => {
+    let filtered = projects;
+    
+    if (activeCategory === 'exclusive') {
+      // Show only exclusive properties
+      filtered = projects.filter(p => p.isExclusive);
+    } else if (activeCategory === 'all') {
+      // Show all properties, but sort exclusive first
+      filtered = projects.sort((a, b) => {
+        if (a.isExclusive && !b.isExclusive) return -1;
+        if (!a.isExclusive && b.isExclusive) return 1;
+        return 0;
+      });
+    } else {
+      // Filter by category, but sort exclusive first within category
+      filtered = projects
+        .filter(p => p.category === activeCategory)
+        .sort((a, b) => {
+          if (a.isExclusive && !b.isExclusive) return -1;
+          if (!a.isExclusive && b.isExclusive) return 1;
+          return 0;
+        });
+    }
+    
+    return filtered;
+  })();
 
   return (
     <div className="min-h-screen pt-24">
@@ -130,8 +166,11 @@ const Projects = () => {
             src={heroImage}
             alt="Properties"
             className="w-full h-full object-cover"
+            style={{
+              filter: 'brightness(1.1) contrast(1.15) saturate(1.2)',
+            }}
           />
-          <div className="absolute inset-0 bg-gradient-to-r from-primary/90 via-primary/70 to-primary/50" />
+          <div className="absolute inset-0 bg-gradient-to-r from-primary/85 via-primary/65 to-primary/45" />
         </motion.div>
 
         <div className="container mx-auto px-4 relative z-10">
@@ -216,6 +255,20 @@ const Projects = () => {
                   />
                   <div className="absolute inset-0 bg-gradient-to-t from-primary/90 via-primary/50 to-transparent" />
                   
+                  {/* Exclusive Badge */}
+                  {project.isExclusive && (
+                    <motion.div 
+                      className="absolute top-4 left-4 bg-gradient-to-r from-yellow-400 via-yellow-500 to-yellow-600 px-4 py-2 rounded-full text-sm font-bold text-foreground shadow-lg flex items-center gap-1.5 z-10"
+                      initial={{ scale: 0, rotate: -180 }}
+                      animate={{ scale: 1, rotate: 0 }}
+                      transition={{ duration: 0.5, delay: 0.2 }}
+                      whileHover={{ scale: 1.1 }}
+                    >
+                      <Crown className="w-4 h-4" />
+                      Exclusive
+                    </motion.div>
+                  )}
+                  
                   {/* Category Badge */}
                   <motion.div 
                     className="absolute top-4 right-4 bg-accent px-4 py-2 rounded-full text-sm font-bold text-foreground"
@@ -260,14 +313,16 @@ const Projects = () => {
                       <span>{project.price.replace('₹', '')}</span>
                     </div>
                     <motion.div whileHover={{ x: 5 }}>
-                      <Link to="/contact">
-                        <Button
-                          variant="ghost"
-                          className="text-primary hover:text-accent transition-smooth"
-                        >
-                          Inquire <ArrowRight className="w-5 h-5 ml-2" />
-                        </Button>
-                      </Link>
+                      <Button
+                        variant="ghost"
+                        onClick={() => {
+                          setSelectedPropertyName(project.title);
+                          setIsContactModalOpen(true);
+                        }}
+                        className="text-primary hover:text-accent-foreground hover:bg-accent transition-smooth"
+                      >
+                        View More <ArrowRight className="w-5 h-5 ml-2" />
+                      </Button>
                     </motion.div>
                   </div>
                 </div>
@@ -283,17 +338,27 @@ const Projects = () => {
             transition={{ duration: 0.8, delay: 0.4 }}
             className="text-center mt-20"
           >
-            <Link to="/contact">
-              <Button
-                size="lg"
-                className="gradient-gold text-foreground hover:shadow-gold transition-smooth font-semibold text-xl px-12 py-6"
-              >
-                Schedule Site Visit <ArrowRight className="ml-2" />
-              </Button>
-            </Link>
+            <Button
+              onClick={() => {
+                setSelectedPropertyName('');
+                setIsContactModalOpen(true);
+              }}
+              size="lg"
+              className="gradient-gold text-foreground hover:shadow-gold transition-smooth font-semibold text-xl px-12 py-6"
+            >
+              Schedule Site Visit <ArrowRight className="ml-2" />
+            </Button>
           </motion.div>
         </div>
       </section>
+
+      {/* Contact Form Modal */}
+      <ContactFormModal
+        open={isContactModalOpen}
+        onOpenChange={setIsContactModalOpen}
+        title="Schedule Site Visit"
+        propertyName={selectedPropertyName}
+      />
     </div>
   );
 };
