@@ -21,9 +21,9 @@ const VisionSection = () => {
         <img
           src={forestImage}
           alt="Uttarakhand Forest"
-          className="w-full h-full object-cover"
+          className="w-full h-full object-cover brightness-110"
         />
-        <div className="absolute inset-0 bg-gradient-to-r from-primary/90 via-primary/70 to-primary/90" />
+        <div className="absolute inset-0 bg-gradient-to-r from-primary/30 via-primary/20 to-primary/30" />
       </motion.div>
 
       {/* Content */}
