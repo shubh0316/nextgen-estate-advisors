@@ -50,12 +50,8 @@ const Footer = () => {
           transition={{ duration: 0.6, delay: 0.4 }}
           className="pt-8 border-t border-primary-foreground/20"
         >
-          <div className="flex flex-col md:flex-row justify-between items-center gap-4 text-primary-foreground/60 text-sm">
-            <p>© 2025 Nextgen Estate Advisors Pvt. Ltd. All rights reserved.</p>
-            <div className="flex gap-6">
-              <button className="hover:text-accent transition-smooth">Privacy Policy</button>
-              <button className="hover:text-accent transition-smooth">Terms of Service</button>
-            </div>
+          <div className="flex justify-center items-center text-primary-foreground/60 text-sm">
+            <p>© {new Date().getFullYear()} Nextgen Estate Advisors Pvt. Ltd. All rights reserved.</p>
           </div>
         </motion.div>
       </div>

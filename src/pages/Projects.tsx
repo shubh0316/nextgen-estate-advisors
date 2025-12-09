@@ -16,6 +16,9 @@ import rivershoreImage from '@/assets/rivershore.jpeg';
 import naturesVillageImage from '@/assets/naturesvillage.jpeg';
 import onefngImage from '@/assets/onefng.jpeg';
 import oasisGrandImage from '@/assets/oasisgrand.jpeg';
+import gygyImage from '@/assets/gygy.jpeg';
+import uniwestImage from '@/assets/uniwest.png';
+import auaspireImage from '@/assets/auaspire.png';
 import { Button } from '@/components/ui/button';
 import ContactFormModal from '@/components/ContactFormModal';
 
@@ -107,6 +110,39 @@ const Projects = () => {
       features: ['Residential Project', 'Yamuna Expressway', 'Greater Noida', 'Premium Living'],
       description: 'Exclusive residential project on Yamuna Expressway Sector 22D Greater Noida. Investment starts from 72 lacs. Premium residential living with modern amenities and strategic location.',
       isExclusive: true,
+    },
+    {
+      id: 7,
+      title: 'GYGY',
+      location: 'Noida, Uttar Pradesh',
+      category: 'commercial',
+      price: '₹27 Lacs+',
+      image: gygyImage,
+      features: ['Food Court ₹27L', 'Shop Starts ₹32L', 'Commercial Space', 'Prime Location'],
+      description: 'Premium commercial project in Noida, Uttar Pradesh. Food court available from ₹27 lakhs and shops starting from ₹32 lakhs. Perfect investment opportunity in prime commercial location.',
+      isExclusive: false,
+    },
+    {
+      id: 8,
+      title: 'Uniwest Hub',
+      location: 'Noida',
+      category: 'commercial',
+      price: '₹75 Lacs+',
+      image: uniwestImage,
+      features: ['Shops Available', 'Commercial Hub', 'Premium Location', 'Investment Opportunity'],
+      description: 'Commercial project offering shops starting from ₹75 lakhs. Prime commercial location with excellent investment potential and modern amenities.',
+      isExclusive: true,
+    },
+    {
+      id: 9,
+      title: 'AU Aspire Leisure Valley',
+      location: 'Greater Noida West',
+      category: 'residential',
+      price: '₹1.73 Cr+',
+      image: auaspireImage,
+      features: ['BSP ₹7979/sqft', 'Sizes: 2176, 2188 sqft', 'Residential', 'Greater Noida West'],
+      description: 'Premium residential project in Greater Noida West. Base selling price ₹7979 per sqft. Available in sizes 2176 sqft and 2188 sqft. Modern residential living with premium amenities.',
+      isExclusive: false,
     },
   ];
 
