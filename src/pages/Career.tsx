@@ -1,6 +1,6 @@
 import { motion } from 'framer-motion';
 import { useState, useRef } from 'react';
-import { Briefcase, MapPin, Clock, DollarSign, ArrowRight, Send, CheckCircle2, Building2, Users, TrendingUp } from 'lucide-react';
+import { Briefcase, MapPin, Clock, IndianRupee, ArrowRight, Send, CheckCircle2, Building2, Users, TrendingUp } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Textarea } from '@/components/ui/textarea';
@@ -396,7 +396,7 @@ const Career = () => {
                         <span>{job.type}</span>
                       </div>
                       <div className="flex items-center gap-1.5">
-                        <DollarSign className="w-4 h-4" />
+                        <IndianRupee className="w-4 h-4" />
                         <span>{job.salary}</span>
                       </div>
                     </div>
