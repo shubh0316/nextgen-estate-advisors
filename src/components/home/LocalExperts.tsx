@@ -9,45 +9,43 @@ import {
   CarouselPrevious,
   type CarouselApi,
 } from '@/components/ui/carousel';
+import raviSinghImage from '@/assets/ravisingh.jpeg';
+import ramanSinghImage from '@/assets/ramansingh.jpeg';
+import sumitSinghImage from '@/assets/sumitsingh.jpeg';
 
 const LocalExperts = () => {
   const [api, setApi] = useState<CarouselApi>();
   const [isAutoScrolling, setIsAutoScrolling] = useState(true);
   const experts = [
     {
-      name: 'Rajesh Sharma',
-      role: 'Dehradun Expert',
-      region: 'Dehradun & Mussoorie',
-      experience: '12+ Years',
-      speciality: 'Forest Lands & Hill Properties',
-    },
-    {
-      name: 'Vikram Singh',
-      role: 'Jim Corbett Specialist',
-      region: 'Jim Corbett & Ramnagar',
-      experience: '10+ Years',
-      speciality: 'Wildlife Corridor Properties',
-    },
-    {
-      name: 'Priya Negi',
-      role: 'Nainital Region Head',
-      region: 'Nainital & Bhimtal',
+      name: 'Ravi Singh',
+      role: 'Founder and CMD',
+      region: 'Uttarakhand and Noida',
       experience: '8+ Years',
-      speciality: 'Lakeside & Valley Properties',
+      speciality: 'Builder relation and sales',
+      image: raviSinghImage,
+      phone: '9310923418',
+      email: 'Nextgenestateadvisors25@gmail.com',
     },
     {
-      name: 'Amit Rawat',
-      role: 'Rishikesh Consultant',
-      region: 'Rishikesh & Haridwar',
-      experience: '15+ Years',
-      speciality: 'Riverside & Spiritual Tourism',
+      name: 'Raman Singh',
+      role: 'Director',
+      region: 'Uttarakhand and Noida',
+      experience: '5+ Years',
+      speciality: 'Expertise in Uttarakhand and Noida',
+      image: ramanSinghImage,
+      phone: '8104680023',
+      email: 'ramansinghkaushik1411@gmail.com',
     },
     {
-      name: 'Neha Bisht',
-      role: 'Investment Advisor',
-      region: 'Yamuna Expressway & Noida',
-      experience: '9+ Years',
-      speciality: 'Commercial & Residential Projects',
+      name: 'Sumit Singh',
+      role: 'Director',
+      region: 'Uttarakhand and Noida',
+      experience: '7+ Years',
+      speciality: 'Expertise in Uttarakhand and Noida',
+      image: sumitSinghImage,
+      phone: '9654211479',
+      email: 'sumitkumarsk6677809@gmail.com',
     },
   ];
 
@@ -140,11 +138,20 @@ const LocalExperts = () => {
                   className="group h-full"
                 >
                   <div className="bg-secondary/50 rounded-2xl p-6 h-full border border-border/50 hover:border-accent/50 transition-all duration-500 hover:shadow-gold">
-                    {/* Avatar Placeholder */}
+                    {/* Avatar Image */}
                     <div className="relative w-24 h-24 mx-auto mb-6">
-                      <div className="w-full h-full rounded-full bg-muted grayscale group-hover:grayscale-0 transition-all duration-500 flex items-center justify-center text-3xl font-bold text-muted-foreground group-hover:text-primary group-hover:bg-accent/20">
-                        {expert.name.split(' ').map(n => n[0]).join('')}
-                      </div>
+                      {expert.image ? (
+                        <motion.img
+                          src={expert.image}
+                          alt={expert.name}
+                          whileHover={{ scale: 1.1 }}
+                          className="w-full h-full rounded-full object-cover transition-all duration-500 border-2 border-border group-hover:border-accent cursor-pointer"
+                        />
+                      ) : (
+                        <div className="w-full h-full rounded-full bg-muted transition-all duration-500 flex items-center justify-center text-3xl font-bold text-muted-foreground group-hover:text-primary group-hover:bg-accent/20">
+                          {expert.name.split(' ').map(n => n[0]).join('')}
+                        </div>
+                      )}
                       <motion.div
                         initial={{ scale: 0 }}
                         whileInView={{ scale: 1 }}
@@ -177,20 +184,26 @@ const LocalExperts = () => {
                     </div>
 
                     <div className="flex justify-center gap-3 mt-6">
-                      <motion.button
-                        whileHover={{ scale: 1.1 }}
-                        whileTap={{ scale: 0.95 }}
-                        className="w-10 h-10 rounded-full bg-primary/10 flex items-center justify-center hover:bg-accent/20 transition-colors"
-                      >
-                        <Phone className="w-4 h-4 text-primary" />
-                      </motion.button>
-                      <motion.button
-                        whileHover={{ scale: 1.1 }}
-                        whileTap={{ scale: 0.95 }}
-                        className="w-10 h-10 rounded-full bg-primary/10 flex items-center justify-center hover:bg-accent/20 transition-colors"
-                      >
-                        <Mail className="w-4 h-4 text-primary" />
-                      </motion.button>
+                      {expert.phone && (
+                        <motion.a
+                          href={`tel:${expert.phone}`}
+                          whileHover={{ scale: 1.1 }}
+                          whileTap={{ scale: 0.95 }}
+                          className="w-10 h-10 rounded-full bg-primary/10 flex items-center justify-center hover:bg-accent/20 transition-colors"
+                        >
+                          <Phone className="w-4 h-4 text-primary" />
+                        </motion.a>
+                      )}
+                      {expert.email && (
+                        <motion.a
+                          href={`mailto:${expert.email}`}
+                          whileHover={{ scale: 1.1 }}
+                          whileTap={{ scale: 0.95 }}
+                          className="w-10 h-10 rounded-full bg-primary/10 flex items-center justify-center hover:bg-accent/20 transition-colors"
+                        >
+                          <Mail className="w-4 h-4 text-primary" />
+                        </motion.a>
+                      )}
                     </div>
                   </div>
                 </motion.div>

@@ -1,6 +1,6 @@
 import { motion, useScroll, useTransform } from 'framer-motion';
 import { useEffect, useState, useRef } from 'react';
-import { ArrowRight, Mountain, TreePine, Waves, Sparkles, Facebook, Instagram, Linkedin, Twitter, Youtube } from 'lucide-react';
+import { ArrowRight, Mountain, TreePine, Waves, Sparkles, Facebook, Instagram } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import forestImage from '@/assets/forest-property-1.jpg';
 import waterfallImage from '@/assets/waterfall-property.jpg';
@@ -90,11 +90,8 @@ const Home = () => {
   ];
 
   const socialLinks = [
-    { icon: Facebook, link: 'https://facebook.com', name: 'Facebook' },
-    { icon: Instagram, link: 'https://instagram.com', name: 'Instagram' },
-    { icon: Linkedin, link: 'https://linkedin.com', name: 'LinkedIn' },
-    { icon: Twitter, link: 'https://twitter.com', name: 'Twitter' },
-    { icon: Youtube, link: 'https://youtube.com', name: 'YouTube' },
+    { icon: Facebook, link: 'https://www.facebook.com/profile.php?id=61584196140737', name: 'Facebook', color: '#1877F2' },
+    { icon: Instagram, link: 'https://www.instagram.com/nextgenestateadvisors/', name: 'Instagram', color: '#E4405F' },
   ];
 
   return (
@@ -274,7 +271,7 @@ const Home = () => {
           scale: isInHeroSection ? 1 : 0.8
         }}
         transition={{ duration: 0.3 }}
-        className="fixed right-3 sm:right-4 md:right-6 lg:right-8 top-[28%] -translate-y-1/2 sm:top-[25%] sm:-translate-y-1/2 z-[60] flex flex-col gap-2 sm:gap-3 md:gap-4"
+        className="fixed right-3 sm:right-4 md:right-6 lg:right-8 top-[40%] -translate-y-1/2 sm:top-[38%] sm:-translate-y-1/2 z-[60] flex flex-col gap-2 sm:gap-3 md:gap-4"
         style={{ 
           pointerEvents: isInHeroSection ? 'auto' : 'none'
         }}
@@ -290,10 +287,22 @@ const Home = () => {
             initial={{ opacity: 0, x: 20 }}
             animate={{ opacity: isInHeroSection ? 1 : 0, x: 0 }}
             transition={{ duration: 0.5, delay: 1.3 + index * 0.1 }}
-            className="p-2 sm:p-2.5 md:p-3 bg-white/10 backdrop-blur-md rounded-full border border-accent/30 hover:bg-accent hover:border-accent transition-all duration-300 shadow-lg"
+            className="p-2 sm:p-2.5 md:p-3 bg-white/10 backdrop-blur-md rounded-full border transition-all duration-300 shadow-lg hover:bg-white/20"
+            style={{ 
+              borderColor: `${social.color}4D`,
+            }}
+            onMouseEnter={(e) => {
+              e.currentTarget.style.borderColor = social.color;
+            }}
+            onMouseLeave={(e) => {
+              e.currentTarget.style.borderColor = `${social.color}4D`;
+            }}
             aria-label={social.name}
           >
-            <social.icon className="w-4 h-4 sm:w-5 sm:h-5 md:w-6 md:h-6 text-white hover:text-foreground" />
+            <social.icon 
+              className="w-4 h-4 sm:w-5 sm:h-5 md:w-6 md:h-6 transition-colors duration-300" 
+              style={{ color: social.color }}
+            />
           </motion.a>
         ))}
       </motion.div>

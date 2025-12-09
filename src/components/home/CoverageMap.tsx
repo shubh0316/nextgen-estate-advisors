@@ -7,52 +7,44 @@ const CoverageMap = () => {
 
   const regions = [
     {
-      name: 'Dehradun',
-      icon: Building2,
-      position: { top: '32%', left: '28%' },
-      properties: '120+ Properties',
-      highlight: 'Capital city with modern amenities',
-      type: 'Urban & Suburban',
+      name: 'Ramnagar',
+      icon: TreePine,
+      position: { top: '28%', left: '52%' },
+      properties: 'Multiple Projects',
+      highlight: 'Prime location near Jim Corbett National Park',
+      type: 'Uttarakhand',
     },
     {
-      name: 'Nainital Region',
-      icon: Waves,
-      position: { top: '58%', left: '72%' },
-      properties: '85+ Properties',
-      highlight: 'Lake district with scenic beauty',
-      type: 'Hill Station',
-    },
-    {
-      name: 'Mussoorie Hills',
+      name: 'Nainital',
       icon: Mountain,
-      position: { top: '25%', left: '38%' },
-      properties: '70+ Properties',
-      highlight: 'Queen of Hills with colonial charm',
-      type: 'Hill Station',
+      position: { top: '30%', left: '54%' },
+      properties: 'Premium Properties',
+      highlight: 'Lake district with scenic beauty',
+      type: 'Uttarakhand',
     },
     {
       name: 'Jim Corbett',
       icon: TreePine,
-      position: { top: '70%', left: '55%' },
-      properties: '95+ Properties',
+      position: { top: '29%', left: '53%' },
+      properties: 'Exclusive Projects',
       highlight: 'Wildlife corridor investments',
-      type: 'Forest & Wildlife',
+      type: 'Uttarakhand',
     },
     {
-      name: 'Rishikesh Valley',
-      icon: Waves,
-      position: { top: '42%', left: '22%' },
-      properties: '60+ Properties',
-      highlight: 'Spiritual & adventure tourism hub',
-      type: 'Riverside',
-    },
-    {
-      name: 'Noida Office',
+      name: 'Noida',
       icon: Building2,
-      position: { top: '88%', left: '35%' },
-      properties: 'HQ + Projects',
-      highlight: 'Yamuna Expressway developments',
-      type: 'Commercial Hub',
+      position: { top: '35%', left: '48%' },
+      properties: 'Commercial Projects',
+      highlight: 'Sector 142 commercial developments',
+      type: 'Uttar Pradesh',
+    },
+    {
+      name: 'Yamuna Expressway',
+      icon: Building2,
+      position: { top: '36%', left: '47%' },
+      properties: 'Residential Projects',
+      highlight: 'Sector 22D Greater Noida',
+      type: 'Uttar Pradesh',
     },
   ];
 
@@ -67,11 +59,11 @@ const CoverageMap = () => {
           className="text-center mb-16"
         >
           <h2 className="text-4xl md:text-6xl font-bold text-foreground mb-4">
-            Uttarakhand Coverage
+            Our Coverage
           </h2>
           <div className="w-24 h-1 bg-gradient-gold mx-auto mb-6" />
           <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
-            Strategic presence across prime locations
+            Strategic presence across prime locations in India
           </p>
         </motion.div>
 
@@ -84,9 +76,9 @@ const CoverageMap = () => {
             transition={{ duration: 1 }}
             className="relative"
           >
-            {/* Uttarakhand SVG Map */}
+            {/* India SVG Map */}
             <svg
-              viewBox="0 0 400 450"
+              viewBox="0 0 600 700"
               className="w-full h-auto"
               fill="none"
               xmlns="http://www.w3.org/2000/svg"
@@ -106,67 +98,46 @@ const CoverageMap = () => {
                 </linearGradient>
               </defs>
 
-              {/* Uttarakhand State Outline - Simplified realistic shape */}
+              {/* India Outline - Simplified shape */}
               <motion.path
                 initial={{ pathLength: 0, opacity: 0 }}
                 whileInView={{ pathLength: 1, opacity: 1 }}
                 viewport={{ once: true }}
                 transition={{ duration: 2, ease: "easeInOut" }}
-                d="M80 120 
-                   C90 80, 130 50, 180 40
-                   C220 35, 260 45, 300 70
-                   C340 95, 360 130, 350 170
-                   C345 200, 330 230, 320 260
-                   C310 290, 320 320, 300 350
-                   C280 380, 240 400, 200 390
-                   C160 380, 130 360, 110 330
-                   C90 300, 70 260, 60 220
-                   C50 180, 60 150, 80 120Z"
+                d="M150 50 
+                   C200 40, 280 45, 350 60
+                   C420 75, 480 100, 520 140
+                   C540 170, 550 210, 540 250
+                   C530 290, 520 330, 500 370
+                   C480 410, 450 440, 410 460
+                   C370 480, 320 490, 270 485
+                   C220 480, 170 470, 130 450
+                   C90 430, 60 400, 45 360
+                   C30 320, 30 280, 40 240
+                   C50 200, 70 160, 100 130
+                   C120 100, 130 70, 150 50Z
+                   M200 180 L220 200 L240 180 L260 200 L280 180
+                   M300 200 L320 220 L340 200
+                   M400 250 L420 270 L440 250
+                   M450 300 L470 320 L490 300"
                 fill="url(#mapGradient)"
                 stroke="hsl(var(--primary))"
-                strokeWidth="2"
+                strokeWidth="2.5"
                 filter="url(#glow)"
                 className="drop-shadow-lg"
               />
 
-              {/* District boundaries (simplified) */}
+              {/* State boundaries (simplified) */}
               <motion.path
                 initial={{ opacity: 0 }}
-                whileInView={{ opacity: 0.3 }}
+                whileInView={{ opacity: 0.2 }}
                 viewport={{ once: true }}
                 transition={{ duration: 1, delay: 1 }}
-                d="M150 100 L200 150 L180 220 M200 150 L280 180 M150 250 L200 300"
+                d="M250 150 L280 200 L300 250 M350 200 L380 250 L400 300"
                 stroke="hsl(var(--primary))"
                 strokeWidth="1"
                 strokeDasharray="5,5"
                 fill="none"
-              />
-
-              {/* Mountain indicators */}
-              <motion.g
-                initial={{ opacity: 0 }}
-                whileInView={{ opacity: 0.4 }}
-                viewport={{ once: true }}
-                transition={{ duration: 1, delay: 0.5 }}
-              >
-                <path d="M120 90 L130 70 L140 90" stroke="hsl(var(--muted-foreground))" strokeWidth="1.5" fill="none" />
-                <path d="M160 60 L175 35 L190 60" stroke="hsl(var(--muted-foreground))" strokeWidth="1.5" fill="none" />
-                <path d="M220 55 L235 30 L250 55" stroke="hsl(var(--muted-foreground))" strokeWidth="1.5" fill="none" />
-                <path d="M280 80 L295 55 L310 80" stroke="hsl(var(--muted-foreground))" strokeWidth="1.5" fill="none" />
-              </motion.g>
-
-              {/* Rivers */}
-              <motion.path
-                initial={{ pathLength: 0 }}
-                whileInView={{ pathLength: 1 }}
-                viewport={{ once: true }}
-                transition={{ duration: 2, delay: 0.8 }}
-                d="M90 180 Q120 200 150 190 Q180 180 200 210 Q220 240 250 250"
-                stroke="hsl(var(--accent))"
-                strokeWidth="2"
-                fill="none"
-                strokeLinecap="round"
-                opacity="0.5"
               />
             </svg>
 

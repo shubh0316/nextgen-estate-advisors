@@ -1,6 +1,6 @@
 import { motion } from 'framer-motion';
 import { useState } from 'react';
-import { Mail, Phone, MapPin, Send, Clock, Globe } from 'lucide-react';
+import { Mail, Phone, MapPin, Send, Clock, Globe, Navigation } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Textarea } from '@/components/ui/textarea';
@@ -21,23 +21,28 @@ const Contact = () => {
     setFormData({ name: '', email: '', phone: '', message: '' });
   };
 
+
+  const directionsUrl = 'https://maps.app.goo.gl/3HJZMFT91Hw2Bv5HA?g_st=aw';
+
   const contactInfo = [
     {
       icon: Phone,
       title: 'Call Us',
-      details: ['+91 98765 43210', '+91 87654 32109'],
+      details: ['+91 93109 23418'],
       color: 'text-accent',
     },
     {
       icon: Mail,
       title: 'Email Us',
-      details: ['info@nextgenestate.com', 'properties@nextgenestate.com'],
+      details: ['Nextgenestateadvisors25@gmail.com'],
       color: 'text-primary',
     },
     {
       icon: MapPin,
       title: 'Visit Us',
-      details: ['Dehradun, Uttarakhand', 'India - 248001'],
+      details: ['Ramnagar · Nainital · Noida · Yamuna Expressway'],
+      link: directionsUrl,
+      linkLabel: 'Get Directions',
       color: 'text-accent',
     },
     {
@@ -48,14 +53,15 @@ const Contact = () => {
     },
   ];
 
-  const locations = [
-    { name: 'Dehradun', area: 'Main Office' },
-    { name: 'Nainital', area: 'Regional Office' },
-    { name: 'Mussoorie', area: 'Property Center' },
-    { name: 'Rishikesh', area: 'Sales Office' },
+  const locations: { name: string; area?: string }[] = [
+    { name: 'Ramnagar' },
+    { name: 'Nainital' },
+    { name: 'Noida' },
+    { name: 'Yamuna Expressway' },
   ];
 
   return (
+    <>
     <div className="min-h-screen pt-24">
       {/* Hero Section */}
       <section className="relative min-h-[50vh] flex items-center overflow-hidden mb-20">
@@ -239,6 +245,28 @@ const Contact = () => {
                           {detail}
                         </p>
                       ))}
+                      {info.link && (
+                        <div className="flex flex-wrap gap-3 mt-4">
+                          <a
+                            href={info.link}
+                            target="_blank"
+                            rel="noreferrer"
+                            className="inline-flex items-center gap-2 px-4 py-2 rounded-lg bg-primary text-primary-foreground font-semibold hover:bg-primary/90 transition-smooth shadow-sm"
+                          >
+                            <Navigation className="w-4 h-4" />
+                            {info.linkLabel ?? 'Get Directions'}
+                          </a>
+                          <a
+                            href={info.link}
+                            target="_blank"
+                            rel="noreferrer"
+                            className="inline-flex items-center gap-2 px-4 py-2 rounded-lg border border-border text-foreground font-semibold hover:border-accent hover:text-accent transition-smooth"
+                          >
+                            <MapPin className="w-4 h-4" />
+                            View on Google Maps
+                          </a>
+                        </div>
+                      )}
                     </div>
                   </div>
                 </motion.div>
@@ -283,13 +311,15 @@ const Contact = () => {
                   <Globe className="w-8 h-8 text-foreground" />
                 </motion.div>
                 <h3 className="text-xl font-bold text-foreground mb-2">{location.name}</h3>
-                <p className="text-muted-foreground">{location.area}</p>
+                {location.area && <p className="text-muted-foreground">{location.area}</p>}
               </motion.div>
             ))}
           </div>
         </div>
       </section>
     </div>
+
+    </>
   );
 };
 

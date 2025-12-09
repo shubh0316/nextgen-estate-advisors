@@ -33,7 +33,7 @@ const Career = () => {
     {
       id: 1,
       title: 'Senior Real Estate Consultant',
-      location: 'Dehradun, Uttarakhand',
+      location: 'Ramnagar, Uttarakhand',
       type: 'Full-time',
       salary: '₹6 LPA - 12 LPA',
       description: 'We are looking for an experienced real estate consultant to join our team. You will be responsible for advising clients on property investments and managing exclusive listings.',
@@ -73,7 +73,7 @@ const Career = () => {
     {
       id: 3,
       title: 'Estate Management Coordinator',
-      location: 'Dehradun, Uttarakhand',
+      location: 'Nainital, Uttarakhand',
       type: 'Full-time',
       salary: '₹3.5 LPA - 7 LPA',
       description: 'Manage our portfolio of exclusive properties and coordinate with property owners, maintenance teams, and potential buyers.',
@@ -93,7 +93,7 @@ const Career = () => {
     {
       id: 4,
       title: 'Sales Associate - Luxury Properties',
-      location: 'Multiple Locations',
+      location: 'Yamuna Expressway, Uttar Pradesh',
       type: 'Full-time',
       salary: '₹3 LPA - 6 LPA + Commission',
       description: 'Sales role focusing on exclusive and luxury properties. Great opportunity for growth in the real estate industry.',
@@ -113,7 +113,7 @@ const Career = () => {
     {
       id: 5,
       title: 'Senior Sales Executive',
-      location: 'Dehradun, Uttarakhand',
+      location: 'Ramnagar, Uttarakhand',
       type: 'Full-time',
       salary: '₹5 LPA - 10 LPA + High Commission',
       description: 'Lead our sales team in closing high-value property deals. Perfect for experienced sales professionals looking to excel in luxury real estate.',
@@ -429,6 +429,7 @@ const Career = () => {
                   onChange={handleInputChange}
                   required
                   placeholder="Senior Real Estate Consultant"
+                  className="cursor-text text-gray-900"
                 />
               </div>
             </div>

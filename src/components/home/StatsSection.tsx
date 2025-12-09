@@ -1,13 +1,13 @@
 import { motion, useInView } from 'framer-motion';
 import { useRef, useEffect, useState } from 'react';
-import { TreePine, IndianRupee, Users, Calendar } from 'lucide-react';
+import { Users, MapPin, Building2, TrendingUp } from 'lucide-react';
 
 const StatsSection = () => {
   const stats = [
-    { icon: TreePine, value: 500, suffix: '+', label: 'Forest Properties', prefix: '' },
-    { icon: IndianRupee, value: 250, suffix: ' Cr+', label: 'Managed Value', prefix: '₹' },
-    { icon: Users, value: 98, suffix: '%', label: 'Client Satisfaction', prefix: '' },
-    { icon: Calendar, value: 15, suffix: '+', label: 'Years Expertise', prefix: '' },
+    { icon: Users, value: 1000, suffix: '+', label: 'Satisfied Clients', prefix: '' },
+    { icon: MapPin, value: 15, suffix: '+', label: 'Uttarakhand Properties', prefix: '' },
+    { icon: Building2, value: 25, suffix: '+', label: 'Noida & Yamuna Expressway', prefix: '' },
+    { icon: TrendingUp, value: 98, suffix: '%', label: 'Satisfaction', prefix: '' },
   ];
 
   return (
