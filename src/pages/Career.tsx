@@ -1,5 +1,5 @@
 import { motion } from 'framer-motion';
-import { useState } from 'react';
+import { useState, useRef } from 'react';
 import { Briefcase, MapPin, Clock, DollarSign, ArrowRight, Send, CheckCircle2, Building2, Users, TrendingUp } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
@@ -17,6 +17,7 @@ import { toast } from '@/hooks/use-toast';
 import { submitCareerApplication } from '@/lib/api';
 
 const Career = () => {
+  const formRef = useRef<HTMLFormElement>(null);
   const [isDialogOpen, setIsDialogOpen] = useState(false);
   const [selectedJob, setSelectedJob] = useState<number | null>(null);
   const [formData, setFormData] = useState({
@@ -165,15 +166,57 @@ const Career = () => {
   const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
     if (file) {
+      // Check file size (max 3MB to account for base64 encoding overhead ~33%)
+      // This ensures it stays under Vercel's 4.5MB request body limit
+      const maxSize = 3 * 1024 * 1024; // 3MB in bytes
+      if (file.size > maxSize) {
+        toast({
+          title: 'File Too Large',
+          description: 'Please upload a file smaller than 3MB. Base64 encoding increases file size.',
+          variant: 'destructive',
+        });
+        e.target.value = ''; // Clear the input
+        return;
+      }
       setFormData((prev) => ({ ...prev, resume: file }));
     }
   };
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+    console.log('handleSubmit called!', formData);
+    
+    // Validate required fields
+    if (!formData.name || !formData.email || !formData.phone || !formData.position || !formData.experience || !formData.coverLetter) {
+      console.log('Validation failed:', {
+        name: !!formData.name,
+        email: !!formData.email,
+        phone: !!formData.phone,
+        position: !!formData.position,
+        experience: !!formData.experience,
+        coverLetter: !!formData.coverLetter,
+      });
+      toast({
+        title: 'Missing Information',
+        description: 'Please fill in all required fields.',
+        variant: 'destructive',
+      });
+      return;
+    }
+
+    console.log('Validation passed, setting isSubmitting to true');
     setIsSubmitting(true);
 
     try {
+      console.log('Form submission started with data:', {
+        name: formData.name,
+        email: formData.email,
+        phone: formData.phone,
+        position: formData.position,
+        hasResume: !!formData.resume,
+      });
+
+      console.log('Calling submitCareerApplication...');
       await submitCareerApplication({
         name: formData.name,
         email: formData.email,
@@ -397,7 +440,12 @@ const Career = () => {
             </DialogDescription>
           </DialogHeader>
           
-          <form onSubmit={handleSubmit} className="space-y-6 mt-4">
+          <form 
+            ref={formRef}
+            onSubmit={handleSubmit} 
+            className="space-y-6 mt-4"
+            noValidate
+          >
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
               <div>
                 <Label htmlFor="modal-name">Full Name *</Label>
@@ -406,7 +454,6 @@ const Career = () => {
                   name="name"
                   value={formData.name}
                   onChange={handleInputChange}
-                  required
                   placeholder="John Doe"
                 />
               </div>
@@ -418,7 +465,6 @@ const Career = () => {
                   type="email"
                   value={formData.email}
                   onChange={handleInputChange}
-                  required
                   placeholder="john@example.com"
                 />
               </div>
@@ -433,7 +479,6 @@ const Career = () => {
                   type="tel"
                   value={formData.phone}
                   onChange={handleInputChange}
-                  required
                   placeholder="+91 1234567890"
                 />
               </div>
@@ -444,7 +489,6 @@ const Career = () => {
                   name="position"
                   value={formData.position}
                   onChange={handleInputChange}
-                  required
                   placeholder="Senior Real Estate Consultant"
                   className="cursor-text text-gray-900"
                 />
@@ -458,7 +502,6 @@ const Career = () => {
                 name="experience"
                 value={formData.experience}
                 onChange={handleInputChange}
-                required
                 placeholder="5 years"
               />
             </div>
@@ -470,26 +513,25 @@ const Career = () => {
                 name="coverLetter"
                 value={formData.coverLetter}
                 onChange={handleInputChange}
-                required
                 placeholder="Tell us why you'd be a great fit for this role..."
                 rows={5}
               />
             </div>
 
             <div>
-              <Label htmlFor="modal-resume">Resume/CV (PDF, DOC, DOCX) *</Label>
+              <Label htmlFor="modal-resume">Resume/CV (PDF, DOC, DOCX)</Label>
+              <p className="text-xs text-muted-foreground mb-2">Maximum file size: 3MB (Optional)</p>
               <Input
                 id="modal-resume"
                 name="resume"
                 type="file"
                 accept=".pdf,.doc,.docx"
                 onChange={handleFileChange}
-                required
                 className="cursor-pointer"
               />
               {formData.resume && (
                 <p className="text-sm text-muted-foreground mt-2">
-                  Selected: {formData.resume.name}
+                  Selected: {formData.resume.name} ({(formData.resume.size / 1024 / 1024).toFixed(2)} MB)
                 </p>
               )}
             </div>
@@ -497,6 +539,20 @@ const Career = () => {
             <Button
               type="submit"
               disabled={isSubmitting}
+              onClick={(e) => {
+                console.log('Submit button clicked!', e);
+                console.log('Form data at button click:', formData);
+                console.log('Is submitting?', isSubmitting);
+                console.log('Form ref:', formRef.current);
+                // If form doesn't submit, manually trigger it
+                const form = e.currentTarget.closest('form') || formRef.current;
+                if (form) {
+                  console.log('Found form element:', form);
+                  // Form should submit naturally via type="submit"
+                } else {
+                  console.error('Form element not found!');
+                }
+              }}
               className="w-full gradient-gold text-foreground hover:shadow-gold text-lg py-6"
               size="lg"
             >

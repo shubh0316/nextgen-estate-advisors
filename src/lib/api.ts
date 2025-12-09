@@ -57,16 +57,28 @@ export const submitContactForm = async (data: ContactFormData): Promise<void> =>
 
 export const submitCareerApplication = async (data: CareerFormData): Promise<void> => {
   try {
+    console.log('Submitting career application:', { 
+      name: data.name, 
+      email: data.email, 
+      position: data.position,
+      hasResume: !!data.resume 
+    });
+
     // Convert file to base64 if present
     let resumeData = null;
     if (data.resume) {
+      console.log('Converting resume to base64:', data.resume.name, data.resume.size);
       resumeData = await new Promise<string>((resolve, reject) => {
         const reader = new FileReader();
         reader.onload = () => {
           const base64String = (reader.result as string).split(',')[1];
+          console.log('Resume converted, base64 length:', base64String.length);
           resolve(base64String);
         };
-        reader.onerror = reject;
+        reader.onerror = (error) => {
+          console.error('Error reading file:', error);
+          reject(error);
+        };
         reader.readAsDataURL(data.resume);
       });
     }
@@ -87,28 +99,50 @@ export const submitCareerApplication = async (data: CareerFormData): Promise<voi
     };
 
     const url = API_BASE_URL ? `${API_BASE_URL}/api/career` : '/api/career';
-    const response = await fetch(url, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify(payload),
-    });
+    console.log('API_BASE_URL:', API_BASE_URL);
+    console.log('Final URL:', url);
+    console.log('Sending request to:', url);
+    console.log('Payload size:', JSON.stringify(payload).length, 'bytes');
+    console.log('About to call fetch...');
+
+    let response;
+    try {
+      response = await fetch(url, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(payload),
+      });
+      console.log('Fetch completed!', response);
+    } catch (fetchError) {
+      console.error('Fetch error (network/CORS issue):', fetchError);
+      throw new Error(`Network error: ${fetchError instanceof Error ? fetchError.message : 'Failed to connect to server'}`);
+    }
+
+    console.log('Response status:', response.status, response.statusText);
 
     if (!response.ok) {
       // Try to parse error response, but handle cases where response might not be JSON
       let errorMessage = 'Failed to submit application';
       try {
         const errorData = await response.json();
+        console.error('Error response:', errorData);
         errorMessage = errorData.error || errorMessage;
+        if (errorData.details) {
+          errorMessage += `: ${errorData.details}`;
+        }
       } catch (e) {
         // If response is not JSON, use status text
+        const text = await response.text();
+        console.error('Non-JSON error response:', text);
         errorMessage = response.statusText || `Server error (${response.status})`;
       }
       throw new Error(errorMessage);
     }
 
     const result = await response.json();
+    console.log('Application submitted successfully:', result);
     return result;
   } catch (error) {
     console.error('Error submitting career application:', error);
