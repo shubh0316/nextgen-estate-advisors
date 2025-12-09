@@ -17,7 +17,7 @@ import CoverageMap from '@/components/home/CoverageMap';
 
 const Home = () => {
   const [displayedText, setDisplayedText] = useState('');
-  const fullText = 'Discover Your Mountain Paradise';
+  const fullText = 'Real estate experts for mountains and Delhi-NCR.';
   const [isTypingComplete, setIsTypingComplete] = useState(false);
   const [isInHeroSection, setIsInHeroSection] = useState(true);
   
@@ -186,9 +186,7 @@ const Home = () => {
               transition={{ duration: 1, delay: 0.8 }}
               className="text-xl md:text-2xl text-white/90 mb-12 max-w-3xl leading-relaxed"
             >
-              Specializing in premium forest lands, mountain resorts, and eco-luxury properties 
-              across Uttarakhand. Experience nature's finest with strategic investments in 
-              pristine locations near waterfalls, trekking trails, and Himalayan peaks.
+             Partnering with leading Delhi-NCR developers, we offer a diverse range of properties—from high-end villas and luxury residences to affordable apartments and plots—across prime locations in Gurgaon, Noida, and Delhi.
             </motion.p>
 
             <motion.div
