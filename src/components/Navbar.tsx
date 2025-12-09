@@ -9,6 +9,7 @@ import { Label } from '@/components/ui/label';
 import { toast } from 'sonner';
 import logo from '@/assets/nextgen-logo.png';
 import ContactFormModal from '@/components/ContactFormModal';
+import { submitCareerApplication } from '@/lib/api';
 
 const Navbar = () => {
   const [isScrolled, setIsScrolled] = useState(false);
@@ -60,9 +61,17 @@ const Navbar = () => {
     e.preventDefault();
     setIsSubmitting(true);
 
-    // Simulate form submission
-    setTimeout(() => {
-      setIsSubmitting(false);
+    try {
+      await submitCareerApplication({
+        name: applyData.name,
+        email: applyData.email,
+        phone: applyData.phone,
+        position: applyData.position,
+        experience: applyData.experience,
+        coverLetter: applyData.coverLetter,
+        resume: applyData.resume,
+      });
+
       toast.success('Application submitted! Our team will reach out soon.');
       setApplyData({
         name: '',
@@ -74,7 +83,16 @@ const Navbar = () => {
         resume: null,
       });
       setIsApplyOpen(false);
-    }, 2000);
+    } catch (error) {
+      console.error('Error submitting application:', error);
+      toast.error(
+        error instanceof Error 
+          ? error.message 
+          : 'Failed to submit application. Please try again.'
+      );
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   return (
