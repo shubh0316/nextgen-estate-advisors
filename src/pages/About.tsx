@@ -198,7 +198,7 @@ const About = () => {
               whileInView={{ opacity: 1, scale: 1 }}
               viewport={{ once: true }}
               transition={{ duration: 1 }}
-              className="relative"
+              className="relative hidden md:block"
             >
               <motion.img
                 whileHover={{ scale: 1.05 }}
