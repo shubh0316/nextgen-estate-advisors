@@ -1,8 +1,10 @@
 import { motion, useScroll, useTransform } from 'framer-motion';
 import { useRef } from 'react';
-import { Award, Target, Users, TrendingUp, Heart, Shield, MapPin, Sparkles } from 'lucide-react';
-import forestTrekImage from '@/assets/forest-trek.jpg';
+import { Award, Target, Users, TrendingUp, Heart, Shield, MapPin, Sparkles, Quote, Building2 } from 'lucide-react';
+import forestTrekImage from '@/assets/image2.jpeg';
 import mountainImage from '@/assets/mountain-land.jpg';
+import ourStoryImage from '@/assets/ourstory.jpeg';
+import raviSinghImage from '@/assets/ravisinghabout.jpeg';
 
 const About = () => {
   const sectionRef = useRef<HTMLDivElement>(null);
@@ -37,36 +39,36 @@ const About = () => {
   ];
 
   const stats = [
-    { number: '500+', label: 'Forest Properties', icon: MapPin },
-    { number: '98%', label: 'Client Satisfaction', icon: Users },
-    { number: '₹250Cr+', label: 'Property Value', icon: TrendingUp },
-    { number: '15+', label: 'Years Experience', icon: Sparkles },
+    { number: '1000+', label: 'Satisfied Clients', icon: Users },
+    { number: '15+', label: 'Uttarakhand Properties', icon: MapPin },
+    { number: '25+', label: 'Noida & Yamuna Expressway', icon: Building2 },
+    { number: '98%', label: 'Satisfaction', icon: TrendingUp },
   ];
 
   const services = [
     {
-      title: 'Forest Land Acquisition',
-      description: 'Expert guidance in acquiring premium forest-adjacent properties with proper clearances and documentation',
+      title: 'Residential Properties',
+      description: 'Premium residential properties including villas, apartments, and luxury homes in prime locations',
     },
     {
-      title: 'Mountain Resort Development',
-      description: 'Complete support for developing eco-luxury resorts and retreats in pristine mountain locations',
+      title: 'Commercial Properties',
+      description: 'Strategic commercial real estate solutions for offices, retail spaces, and business establishments',
     },
     {
-      title: 'Investment Advisory',
-      description: 'Strategic advice on high-yield nature property investments across Uttarakhand',
+      title: 'IT/ITES Properties',
+      description: 'Specialized properties for IT companies, tech parks, and modern workspace solutions',
     },
     {
-      title: 'Property Management',
-      description: 'Comprehensive management services for your mountain and forest properties',
+      title: 'Forest Properties',
+      description: 'Exclusive forest-adjacent properties offering privacy, natural beauty, and eco-friendly living',
     },
     {
-      title: 'Eco-Tourism Projects',
-      description: 'Consultation for sustainable eco-tourism and adventure property developments',
+      title: 'Mountain Properties',
+      description: 'Stunning mountain-side properties with panoramic views, perfect for retreats and luxury living',
     },
     {
-      title: 'Legal & Documentation',
-      description: 'Complete legal support and documentation for all property transactions',
+      title: 'River Facing Properties',
+      description: 'Premium river-facing properties offering serene waterfront living and scenic beauty',
     },
   ];
 
@@ -80,10 +82,13 @@ const About = () => {
         >
           <img
             src={forestTrekImage}
-            alt="Forest Trek"
+            alt="About Us"
             className="w-full h-full object-cover"
+            style={{
+              filter: 'brightness(1.1) contrast(1.15) saturate(1.2)',
+            }}
           />
-          <div className="absolute inset-0 bg-gradient-to-r from-primary/90 via-primary/70 to-transparent" />
+          <div className="absolute inset-0 bg-gradient-to-r from-primary/85 via-primary/65 to-transparent" />
         </motion.div>
 
         <div className="container mx-auto px-4 relative z-10">
@@ -125,7 +130,7 @@ const About = () => {
       </section>
 
       {/* Story Section */}
-      <section className="py-32 bg-background relative overflow-hidden">
+      <section className="pt-16 pb-24 -mt-8 bg-background relative overflow-hidden">
         <motion.div
           initial={{ opacity: 0 }}
           whileInView={{ opacity: 0.05 }}
@@ -160,7 +165,7 @@ const About = () => {
                 viewport={{ once: true }}
                 transition={{ duration: 0.8, delay: 0.2 }}
               >
-                Nextgen Estate Infra Advisors Pvt. Ltd. specializes in premium residential, 
+                Nextgen Estate  Advisors Pvt. Ltd. specializes in premium residential, 
                 commercial, and investment properties with a unique focus on Uttarakhand's 
                 natural landscapes.
               </motion.p>
@@ -198,11 +203,126 @@ const About = () => {
               <motion.img
                 whileHover={{ scale: 1.05 }}
                 transition={{ duration: 0.6 }}
-                src={mountainImage}
-                alt="Mountain Property"
+                src={ourStoryImage}
+                alt="Our Story"
                 className="rounded-2xl shadow-elegant w-full h-[600px] object-cover"
               />
               <div className="absolute inset-0 bg-gradient-to-t from-primary/30 to-transparent rounded-2xl" />
+            </motion.div>
+          </div>
+        </div>
+      </section>
+
+      {/* Message from Founder Section */}
+      <section className="pt-16 pb-24 -mt-8 bg-gradient-to-br from-muted/30 via-background to-muted/20 relative overflow-hidden">
+        <motion.div
+          initial={{ opacity: 0 }}
+          whileInView={{ opacity: 0.05 }}
+          viewport={{ once: true }}
+          className="absolute inset-0"
+        >
+          <div className="absolute top-20 left-20 w-96 h-96 bg-primary rounded-full blur-3xl" />
+          <div className="absolute bottom-20 right-20 w-96 h-96 bg-accent rounded-full blur-3xl" />
+        </motion.div>
+
+        <div className="container mx-auto px-2 md:px-4 lg:px-6 relative z-10 max-w-7xl">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12 items-center">
+            {/* Portrait on Left */}
+            <motion.div
+              initial={{ opacity: 0, x: -50 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.8 }}
+              className="relative flex justify-center lg:justify-end"
+            >
+              <div className="relative w-full">
+                {/* Decorative frame background */}
+                <div className="absolute -inset-4 bg-gradient-to-br from-primary/20 via-accent/10 to-primary/20 rounded-2xl blur-sm" />
+                <div className="absolute -inset-2 bg-white/50 rounded-xl" />
+                
+                {/* Image container with professional frame */}
+                <div className="relative bg-white rounded-xl p-4 shadow-2xl border-2 border-gray-200/80">
+                  {/* Double border effect */}
+                  <div className="absolute inset-0 rounded-lg border border-gray-300/50 pointer-events-none" />
+                  
+                  <motion.img
+                    src={raviSinghImage}
+                    alt="Mr. Ravi Singh"
+                    className="w-full h-auto rounded-lg object-cover relative z-10"
+                    style={{ maxHeight: '600px' }}
+                    whileHover={{ scale: 1.02 }}
+                    transition={{ duration: 0.3 }}
+                  />
+                  
+                  {/* Decorative corner accents */}
+                  <div className="absolute -top-2 -left-2 w-8 h-8 border-t-2 border-l-2 border-primary/40 rounded-tl-lg" />
+                  <div className="absolute -top-2 -right-2 w-8 h-8 border-t-2 border-r-2 border-primary/40 rounded-tr-lg" />
+                  <div className="absolute -bottom-2 -left-2 w-8 h-8 border-b-2 border-l-2 border-primary/40 rounded-bl-lg" />
+                  <div className="absolute -bottom-2 -right-2 w-8 h-8 border-b-2 border-r-2 border-primary/40 rounded-br-lg" />
+                </div>
+                
+                {/* Subtle glow effect */}
+                <div className="absolute inset-0 bg-gradient-to-t from-primary/10 via-transparent to-transparent rounded-xl pointer-events-none" />
+              </div>
+            </motion.div>
+
+            {/* Quote Card on Right */}
+            <motion.div
+              initial={{ opacity: 0, x: 50 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.8, delay: 0.2 }}
+              className="relative w-full"
+            >
+              {/* Quote Card */}
+              <div className="relative bg-white/95 backdrop-blur-sm rounded-lg shadow-2xl p-8 md:p-10 lg:p-12 border-2 border-gray-200/80" style={{ boxShadow: '0 8px 32px rgba(0,0,0,0.12)' }}>
+                {/* Double border effect */}
+                <div className="absolute inset-0 rounded-lg border border-gray-300/50 pointer-events-none" />
+                
+                {/* Quote Text */}
+                <motion.div
+                  initial={{ opacity: 0, y: 20 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ duration: 0.6, delay: 0.3 }}
+                  className="mb-8"
+                >
+                  <Quote className="w-12 h-12 text-primary/30 mb-4" />
+                  <p className="text-lg md:text-xl text-gray-800 leading-relaxed mb-4">
+                    At <strong>Nextgen Estate Advisors</strong>, we believe that investing in nature properties is not just 
+                    about acquiring land—it's about <strong>securing a piece of paradise</strong> for generations to come. 
+                    Our commitment to Uttarakhand's pristine landscapes drives everything we do.
+                  </p>
+                  <p className="text-lg md:text-xl text-gray-800 leading-relaxed mb-4">
+                    With over 8+ years of experience in the real estate industry, we've built a reputation 
+                    for transparency, integrity, and excellence. Every property we recommend undergoes 
+                    thorough due diligence, ensuring our clients make informed decisions that align with 
+                    their vision and values.
+                  </p>
+                  <p className="text-lg md:text-xl text-gray-800 leading-relaxed">
+                    We understand that each client's journey is unique. Whether you're looking for a 
+                    mountain retreat, a forest sanctuary, or an investment opportunity, our team is 
+                    dedicated to making your dreams a reality while preserving the natural beauty 
+                    that makes Uttarakhand special.
+                  </p>
+                </motion.div>
+
+                {/* Signature */}
+                <motion.div
+                  initial={{ opacity: 0, y: 20 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ duration: 0.6, delay: 0.5 }}
+                  className="mt-8 pt-6 border-t border-gray-200"
+                >
+                  <p className="text-2xl md:text-3xl font-bold text-primary mb-1" style={{ fontFamily: 'cursive, serif' }}>
+                    Mr. Ravi Singh
+                  </p>
+                  <p className="text-sm md:text-base text-gray-600 font-medium">
+                    Founder & CMD, Nextgen Estate Advisors
+                  </p>
+                </motion.div>
+              </div>
             </motion.div>
           </div>
         </div>

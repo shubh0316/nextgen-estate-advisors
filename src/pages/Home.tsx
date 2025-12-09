@@ -1,12 +1,12 @@
 import { motion, useScroll, useTransform } from 'framer-motion';
 import { useEffect, useState, useRef } from 'react';
-import { ArrowRight, Mountain, TreePine, Waves, Sparkles } from 'lucide-react';
+import { ArrowRight, Mountain, TreePine, Waves, Sparkles, Facebook, Instagram } from 'lucide-react';
 import { Link } from 'react-router-dom';
-import heroImage from '@/assets/uttarakhand-hero.jpg';
 import forestImage from '@/assets/forest-property-1.jpg';
 import waterfallImage from '@/assets/waterfall-property.jpg';
 import mountainImage from '@/assets/mountain-land.jpg';
 import { Button } from '@/components/ui/button';
+import HeroBackgroundSlider from '@/components/home/HeroBackgroundSlider';
 import WhyChooseSection from '@/components/home/WhyChooseSection';
 import VisionSection from '@/components/home/VisionSection';
 import StatsSection from '@/components/home/StatsSection';
@@ -17,10 +17,12 @@ import CoverageMap from '@/components/home/CoverageMap';
 
 const Home = () => {
   const [displayedText, setDisplayedText] = useState('');
-  const fullText = 'Discover Your Mountain Paradise';
+  const fullText = 'Real estate experts for mountains and Delhi-NCR.';
   const [isTypingComplete, setIsTypingComplete] = useState(false);
+  const [isInHeroSection, setIsInHeroSection] = useState(true);
   
   const sectionRef = useRef<HTMLDivElement>(null);
+  const heroRef = useRef<HTMLElement>(null);
   const { scrollYProgress } = useScroll({
     target: sectionRef,
     offset: ['start start', 'end start'],
@@ -28,6 +30,24 @@ const Home = () => {
 
   const y = useTransform(scrollYProgress, [0, 1], [0, 300]);
   const opacity = useTransform(scrollYProgress, [0, 0.5], [1, 0]);
+
+  // Check if we're in the hero section based on scroll position
+  // Icons should be visible as long as hero section (carousel area) is visible
+  useEffect(() => {
+    const handleScroll = () => {
+      if (heroRef.current) {
+        const heroRect = heroRef.current.getBoundingClientRect();
+        const windowHeight = window.innerHeight;
+        // Show icons when hero section is visible (any part of it is in viewport)
+        setIsInHeroSection(heroRect.bottom > 0 && heroRect.top < windowHeight);
+      }
+    };
+
+    window.addEventListener('scroll', handleScroll);
+    handleScroll(); // Check initial position
+    
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
 
   useEffect(() => {
     let index = 0;
@@ -69,35 +89,29 @@ const Home = () => {
     },
   ];
 
+  const socialLinks = [
+    { icon: Facebook, link: 'https://www.facebook.com/profile.php?id=61584196140737', name: 'Facebook', color: '#1877F2' },
+    { icon: Instagram, link: 'https://www.instagram.com/nextgenestateadvisors/', name: 'Instagram', color: '#E4405F' },
+  ];
+
   return (
     <div className="min-h-screen" ref={sectionRef}>
       {/* Hero Section */}
-      <section className="relative min-h-screen flex items-center overflow-hidden">
-        {/* Parallax Background */}
+      <section ref={heroRef} className="relative min-h-screen flex items-center overflow-hidden">
+        {/* Parallax Background with Slider */}
         <motion.div
           style={{ y }}
           className="absolute inset-0"
         >
-          <motion.div
-            initial={{ scale: 1.2 }}
-            animate={{ scale: 1 }}
-            transition={{ duration: 2, ease: 'easeOut' }}
-            className="h-full w-full"
-          >
-            <img
-              src={heroImage}
-              alt="Uttarakhand Mountains"
-              className="w-full h-full object-cover"
-            />
-          </motion.div>
+          <HeroBackgroundSlider />
           <motion.div 
             style={{ opacity }}
-            className="absolute inset-0 bg-gradient-to-b from-primary/70 via-primary/50 to-background/90"
+            className="absolute inset-0 bg-gradient-to-b from-primary/50 via-primary/30 to-background/70 z-10"
           />
         </motion.div>
 
         {/* Floating Particles */}
-        <div className="absolute inset-0 overflow-hidden">
+        <div className="absolute inset-0 overflow-hidden z-20">
           {[...Array(20)].map((_, i) => (
             <motion.div
               key={i}
@@ -121,7 +135,7 @@ const Home = () => {
         </div>
 
         {/* Content */}
-        <div className="container mx-auto px-4 relative z-10 pt-32">
+        <div className="container mx-auto px-4 relative z-30 pt-32">
           <div className="max-w-5xl">
             <motion.div
               initial={{ opacity: 0, y: 50 }}
@@ -134,15 +148,15 @@ const Home = () => {
                 animate={{ opacity: 1, scale: 1 }}
                 transition={{ duration: 1 }}
               >
-                Nextgen Estate
-                <motion.span 
+                Nextgen Estate Advisors
+                {/* <motion.span 
                   className="block text-accent text-4xl md:text-6xl lg:text-7xl mt-4"
                   initial={{ opacity: 0, x: -50 }}
                   animate={{ opacity: 1, x: 0 }}
                   transition={{ duration: 1, delay: 0.5 }}
                 >
                   Infra Advisors
-                </motion.span>
+                </motion.span> */}
               </motion.h1>
             </motion.div>
 
@@ -172,9 +186,7 @@ const Home = () => {
               transition={{ duration: 1, delay: 0.8 }}
               className="text-xl md:text-2xl text-white/90 mb-12 max-w-3xl leading-relaxed"
             >
-              Specializing in premium forest lands, mountain resorts, and eco-luxury properties 
-              across Uttarakhand. Experience nature's finest with strategic investments in 
-              pristine locations near waterfalls, trekking trails, and Himalayan peaks.
+             Partnering with leading Delhi-NCR developers, we offer a diverse range of properties—from high-end villas and luxury residences to affordable apartments and plots—across prime locations in Gurgaon, Noida, and Delhi.
             </motion.p>
 
             <motion.div
@@ -249,6 +261,49 @@ const Home = () => {
           </motion.div>
         </motion.div>
       </section>
+
+      {/* Social Media Icons - Fixed position, only visible in hero section */}
+      <motion.div
+        animate={{ 
+          opacity: isInHeroSection ? 1 : 0,
+          scale: isInHeroSection ? 1 : 0.8
+        }}
+        transition={{ duration: 0.3 }}
+        className="fixed right-3 sm:right-4 md:right-6 lg:right-8 top-[40%] -translate-y-1/2 sm:top-[38%] sm:-translate-y-1/2 z-[60] flex flex-col gap-2 sm:gap-3 md:gap-4"
+        style={{ 
+          pointerEvents: isInHeroSection ? 'auto' : 'none'
+        }}
+      >
+        {socialLinks.map((social, index) => (
+          <motion.a
+            key={index}
+            href={social.link}
+            target="_blank"
+            rel="noopener noreferrer"
+            whileHover={{ scale: 1.1, x: 0 }}
+            whileTap={{ scale: 0.9 }}
+            initial={{ opacity: 0, x: 20 }}
+            animate={{ opacity: isInHeroSection ? 1 : 0, x: 0 }}
+            transition={{ duration: 0.5, delay: 1.3 + index * 0.1 }}
+            className="p-2 sm:p-2.5 md:p-3 bg-white/10 backdrop-blur-md rounded-full border transition-all duration-300 shadow-lg hover:bg-white/20"
+            style={{ 
+              borderColor: `${social.color}4D`,
+            }}
+            onMouseEnter={(e) => {
+              e.currentTarget.style.borderColor = social.color;
+            }}
+            onMouseLeave={(e) => {
+              e.currentTarget.style.borderColor = `${social.color}4D`;
+            }}
+            aria-label={social.name}
+          >
+            <social.icon 
+              className="w-4 h-4 sm:w-5 sm:h-5 md:w-6 md:h-6 transition-colors duration-300" 
+              style={{ color: social.color }}
+            />
+          </motion.a>
+        ))}
+      </motion.div>
 
       {/* Highlights Section */}
       <section className="py-32 bg-background relative overflow-hidden">

@@ -1,6 +1,6 @@
 import { motion, useScroll, useTransform } from 'framer-motion';
 import { useRef, useState } from 'react';
-import { TreePine, Mountain, Waves, MapPin, IndianRupee, ArrowRight, Sparkles } from 'lucide-react';
+import { TreePine, Mountain, Waves, MapPin, IndianRupee, ArrowRight, Sparkles, Crown, Building2, Home } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import forestProperty from '@/assets/forest-property-1.jpg';
 import waterfallProperty from '@/assets/waterfall-property.jpg';
@@ -9,8 +9,18 @@ import forestTrek from '@/assets/forest-trek.jpg';
 import riversideLand from '@/assets/riverside-land.jpg';
 import hillsideLand from '@/assets/hillside-land.jpg';
 import valleyProperty from '@/assets/valley-property.jpg';
-import heroImage from '@/assets/uttarakhand-hero.jpg';
+import heroImage from '@/assets/image6.jpg';
+import shubhkadamImage from '@/assets/shubhkadam2.0.jpeg';
+import patkaotValleyImage from '@/assets/patkotevalley.jpeg';
+import rivershoreImage from '@/assets/rivershore.jpeg';
+import naturesVillageImage from '@/assets/naturesvillage.jpeg';
+import onefngImage from '@/assets/onefng.jpeg';
+import oasisGrandImage from '@/assets/oasisgrand.jpeg';
+import gygyImage from '@/assets/gygy.jpeg';
+import uniwestImage from '@/assets/uniwest.png';
+import auaspireImage from '@/assets/auaspire.png';
 import { Button } from '@/components/ui/button';
+import ContactFormModal from '@/components/ContactFormModal';
 
 const Projects = () => {
   const sectionRef = useRef<HTMLDivElement>(null);
@@ -21,100 +31,148 @@ const Projects = () => {
 
   const y = useTransform(scrollYProgress, [0, 1], [100, -100]);
   const [activeCategory, setActiveCategory] = useState('all');
+  const [isContactModalOpen, setIsContactModalOpen] = useState(false);
+  const [selectedPropertyName, setSelectedPropertyName] = useState<string>('');
 
   const categories = [
     { id: 'all', name: 'All Properties', icon: Sparkles },
+    { id: 'exclusive', name: 'Exclusive Properties', icon: Crown },
     { id: 'forest', name: 'Forest Lands', icon: TreePine },
     { id: 'mountain', name: 'Mountain Estates', icon: Mountain },
-    { id: 'waterfall', name: 'Waterfall Properties', icon: Waves },
+    { id: 'river', name: 'River Properties', icon: Waves },
+    { id: 'commercial', name: 'Commercial', icon: Building2 },
+    { id: 'residential', name: 'Residential', icon: Home },
   ];
 
   const projects = [
     {
       id: 1,
-      title: 'Luxury Forest Villa Estate',
-      location: 'Ranikhet, Uttarakhand',
-      category: 'forest',
-      price: '₹3 Cr - 8 Cr',
-      image: forestProperty,
-      features: ['Eco-Resort', 'Pine Forest', 'Mountain View', '5-10 Acres'],
-      description: 'Premium eco-luxury villas nestled in pristine pine forest with panoramic valley views.',
+      title: 'Shubhkadam 2.0',
+      location: 'Jim Corbett',
+      category: 'mountain',
+      price: '₹30 Lacs+',
+      image: shubhkadamImage,
+      features: ['Fully Furnished', 'Luxury Studios', 'Duplexes', 'Plunge Pool'],
+      description: 'Holiday home in Ramnagar, minutes from Jim Corbett National Park. Fully furnished luxury studios and duplexes with Stone + Wood + Glass design. Features plunge pool, premium amenities, and scenic views. Guaranteed 50/50% revenue sharing after possession.',
+      isExclusive: false,
     },
     {
       id: 2,
-      title: 'Waterfall Paradise Land',
-      location: 'Mussoorie Region',
-      category: 'waterfall',
-      price: '₹2 Cr - 5 Cr',
-      image: waterfallProperty,
-      features: ['Waterfall View', 'Natural Stream', 'Forest Cover', '3-7 Acres'],
-      description: 'Exclusive land parcels near pristine waterfalls, perfect for boutique resorts.',
+      title: 'Patkaot Valley',
+      location: 'Ramnagar Nainital',
+      category: 'forest',
+      price: '₹25 Lacs+',
+      image: patkaotValleyImage,
+      features: ['Mountain & Hills', 'Shop from ₹25L', 'Plot from ₹75L', 'Forest Category'],
+      description: 'Premium property in Ramnagar Nainital offering shops starting from 25 lakhs and plots starting from 75 lakhs. Investment starts from 25 lacs. Perfect blend of mountain, hills, and forest landscapes.',
+      isExclusive: false,
     },
     {
       id: 3,
-      title: 'Himalayan View Land',
-      location: 'Almora Hills',
-      category: 'mountain',
-      price: '₹1.5 Cr - 4 Cr',
-      image: mountainLand,
-      features: ['Himalayan Views', 'Green Meadows', 'Pine Forest', '2-5 Acres'],
-      description: 'Scenic mountain land with breathtaking Himalayan panoramas and lush meadows.',
+      title: 'Rivershore',
+      location: 'Ramnagar Nainital',
+      category: 'river',
+      price: '₹75 Lacs+',
+      image: rivershoreImage,
+      features: ['River Facing', 'Mountain Views', 'Hills Location', 'Premium Amenities'],
+      description: 'Exclusive project offering river, mountain, and hills experience. Investment starts from 75 lacs. Perfect location in Ramnagar Nainital with scenic river views and mountain backdrop.',
+      isExclusive: true,
     },
     {
       id: 4,
-      title: 'Forest Trek Resort Land',
-      location: 'Nainital Forest',
+      title: "Nature's Village",
+      location: 'Jim Corbett',
       category: 'forest',
-      price: '₹2.5 Cr - 6 Cr',
-      image: forestTrek,
-      features: ['Trekking Trails', 'Dense Forest', 'Adventure Hub', '4-8 Acres'],
-      description: 'Perfect for adventure resort development with natural trekking paths through forest.',
+      price: '₹37 Lacs+',
+      image: naturesVillageImage,
+      features: ['₹2999/sqft', 'Exclusive Project', 'Forest Location', 'Premium Development'],
+      description: 'Exclusive project located in Jim Corbett. Investment starts from 37 lacs at ₹2999 per sqft. Perfect blend of nature and modern living in the heart of wildlife paradise.',
+      isExclusive: true,
     },
     {
       id: 5,
-      title: 'Riverside Mountain Land',
-      location: 'Rishikesh Hills',
-      category: 'waterfall',
-      price: '₹3 Cr - 7 Cr',
-      image: riversideLand,
-      features: ['River Frontage', 'Mountain Peaks', 'Pristine Water', '5-10 Acres'],
-      description: 'Premium riverside property with crystal clear mountain stream and forest cover.',
+      title: 'One FNG',
+      location: 'Sector 142 Noida',
+      category: 'commercial',
+      price: '₹1.39 Cr+',
+      image: onefngImage,
+      features: ['914 sq.ft', 'Group 108 Developer', 'Commercial Space', 'Premium Location'],
+      description: 'Premium commercial property in Sector 142 Noida by Group 108. Starting from ₹1.39 crores for 914 sq.ft. Perfect investment opportunity in prime commercial location.',
+      isExclusive: true,
     },
     {
       id: 6,
-      title: 'Hillside Forest Estate',
-      location: 'Bhimtal Region',
-      category: 'mountain',
-      price: '₹4 Cr - 10 Cr',
-      image: hillsideLand,
-      features: ['Valley View', 'Winding Roads', 'Forest Cover', '8-15 Acres'],
-      description: 'Expansive hillside property perfect for luxury eco-resort development.',
+      title: 'Oasis Grand Stand',
+      location: 'Yamuna Expressway Sector 22D Greater Noida',
+      category: 'residential',
+      price: '₹72 Lacs+',
+      image: oasisGrandImage,
+      features: ['Residential Project', 'Yamuna Expressway', 'Greater Noida', 'Premium Living'],
+      description: 'Exclusive residential project on Yamuna Expressway Sector 22D Greater Noida. Investment starts from 72 lacs. Premium residential living with modern amenities and strategic location.',
+      isExclusive: true,
     },
     {
       id: 7,
-      title: 'Valley Paradise Land',
-      location: 'Chopta Valley',
-      category: 'mountain',
-      price: '₹5 Cr - 12 Cr',
-      image: valleyProperty,
-      features: ['Snow Peaks', 'Green Valley', 'Wildflowers', '10-20 Acres'],
-      description: 'Pristine valley land with snow-capped peaks, ideal for adventure tourism.',
+      title: 'GYGY',
+      location: 'Noida, Uttar Pradesh',
+      category: 'commercial',
+      price: '₹27 Lacs+',
+      image: gygyImage,
+      features: ['Food Court ₹27L', 'Shop Starts ₹32L', 'Commercial Space', 'Prime Location'],
+      description: 'Premium commercial project in Noida, Uttar Pradesh. Food court available from ₹27 lakhs and shops starting from ₹32 lakhs. Perfect investment opportunity in prime commercial location.',
+      isExclusive: false,
     },
     {
       id: 8,
-      title: 'Forest Sanctuary Estate',
-      location: 'Corbett Forest Area',
-      category: 'forest',
-      price: '₹6 Cr - 15 Cr',
-      image: forestProperty,
-      features: ['Wildlife Corridor', 'Dense Forest', 'Eco-Tourism', '15-30 Acres'],
-      description: 'Exclusive forest estate near Corbett, perfect for wildlife-focused eco-resort.',
+      title: 'Uniwest Hub',
+      location: 'Noida',
+      category: 'commercial',
+      price: '₹75 Lacs+',
+      image: uniwestImage,
+      features: ['Shops Available', 'Commercial Hub', 'Premium Location', 'Investment Opportunity'],
+      description: 'Commercial project offering shops starting from ₹75 lakhs. Prime commercial location with excellent investment potential and modern amenities.',
+      isExclusive: true,
+    },
+    {
+      id: 9,
+      title: 'AU Aspire Leisure Valley',
+      location: 'Greater Noida West',
+      category: 'residential',
+      price: '₹1.73 Cr+',
+      image: auaspireImage,
+      features: ['BSP ₹7979/sqft', 'Sizes: 2176, 2188 sqft', 'Residential', 'Greater Noida West'],
+      description: 'Premium residential project in Greater Noida West. Base selling price ₹7979 per sqft. Available in sizes 2176 sqft and 2188 sqft. Modern residential living with premium amenities.',
+      isExclusive: false,
     },
   ];
 
-  const filteredProjects = activeCategory === 'all' 
-    ? projects 
-    : projects.filter(p => p.category === activeCategory);
+  // Filter and sort projects based on category
+  const filteredProjects = (() => {
+    let filtered = projects;
+    
+    if (activeCategory === 'exclusive') {
+      // Show only exclusive properties
+      filtered = projects.filter(p => p.isExclusive);
+    } else if (activeCategory === 'all') {
+      // Show all properties, but sort exclusive first
+      filtered = projects.sort((a, b) => {
+        if (a.isExclusive && !b.isExclusive) return -1;
+        if (!a.isExclusive && b.isExclusive) return 1;
+        return 0;
+      });
+    } else {
+      // Filter by category, but sort exclusive first within category
+      filtered = projects
+        .filter(p => p.category === activeCategory)
+        .sort((a, b) => {
+          if (a.isExclusive && !b.isExclusive) return -1;
+          if (!a.isExclusive && b.isExclusive) return 1;
+          return 0;
+        });
+    }
+    
+    return filtered;
+  })();
 
   return (
     <div className="min-h-screen pt-24">
@@ -130,8 +188,11 @@ const Projects = () => {
             src={heroImage}
             alt="Properties"
             className="w-full h-full object-cover"
+            style={{
+              filter: 'brightness(1.1) contrast(1.15) saturate(1.2)',
+            }}
           />
-          <div className="absolute inset-0 bg-gradient-to-r from-primary/90 via-primary/70 to-primary/50" />
+          <div className="absolute inset-0 bg-gradient-to-r from-primary/85 via-primary/65 to-primary/45" />
         </motion.div>
 
         <div className="container mx-auto px-4 relative z-10">
@@ -216,6 +277,20 @@ const Projects = () => {
                   />
                   <div className="absolute inset-0 bg-gradient-to-t from-primary/90 via-primary/50 to-transparent" />
                   
+                  {/* Exclusive Badge */}
+                  {project.isExclusive && (
+                    <motion.div 
+                      className="absolute top-4 left-4 bg-gradient-to-r from-yellow-400 via-yellow-500 to-yellow-600 px-4 py-2 rounded-full text-sm font-bold text-foreground shadow-lg flex items-center gap-1.5 z-10"
+                      initial={{ scale: 0, rotate: -180 }}
+                      animate={{ scale: 1, rotate: 0 }}
+                      transition={{ duration: 0.5, delay: 0.2 }}
+                      whileHover={{ scale: 1.1 }}
+                    >
+                      <Crown className="w-4 h-4" />
+                      Exclusive
+                    </motion.div>
+                  )}
+                  
                   {/* Category Badge */}
                   <motion.div 
                     className="absolute top-4 right-4 bg-accent px-4 py-2 rounded-full text-sm font-bold text-foreground"
@@ -260,14 +335,16 @@ const Projects = () => {
                       <span>{project.price.replace('₹', '')}</span>
                     </div>
                     <motion.div whileHover={{ x: 5 }}>
-                      <Link to="/contact">
-                        <Button
-                          variant="ghost"
-                          className="text-primary hover:text-accent transition-smooth"
-                        >
-                          Inquire <ArrowRight className="w-5 h-5 ml-2" />
-                        </Button>
-                      </Link>
+                      <Button
+                        variant="ghost"
+                        onClick={() => {
+                          setSelectedPropertyName(project.title);
+                          setIsContactModalOpen(true);
+                        }}
+                        className="text-primary hover:text-accent-foreground hover:bg-accent transition-smooth"
+                      >
+                        View More <ArrowRight className="w-5 h-5 ml-2" />
+                      </Button>
                     </motion.div>
                   </div>
                 </div>
@@ -283,17 +360,27 @@ const Projects = () => {
             transition={{ duration: 0.8, delay: 0.4 }}
             className="text-center mt-20"
           >
-            <Link to="/contact">
-              <Button
-                size="lg"
-                className="gradient-gold text-foreground hover:shadow-gold transition-smooth font-semibold text-xl px-12 py-6"
-              >
-                Schedule Site Visit <ArrowRight className="ml-2" />
-              </Button>
-            </Link>
+            <Button
+              onClick={() => {
+                setSelectedPropertyName('');
+                setIsContactModalOpen(true);
+              }}
+              size="lg"
+              className="gradient-gold text-foreground hover:shadow-gold transition-smooth font-semibold text-xl px-12 py-6"
+            >
+              Schedule Site Visit <ArrowRight className="ml-2" />
+            </Button>
           </motion.div>
         </div>
       </section>
+
+      {/* Contact Form Modal */}
+      <ContactFormModal
+        open={isContactModalOpen}
+        onOpenChange={setIsContactModalOpen}
+        title="Schedule Site Visit"
+        propertyName={selectedPropertyName}
+      />
     </div>
   );
 };

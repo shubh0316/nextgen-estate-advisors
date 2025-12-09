@@ -1,11 +1,12 @@
 import { motion } from 'framer-motion';
 import { useState } from 'react';
-import { Mail, Phone, MapPin, Send, Clock, Globe } from 'lucide-react';
+import { Mail, Phone, MapPin, Send, Clock, Globe, Navigation } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Textarea } from '@/components/ui/textarea';
 import { toast } from 'sonner';
-import forestImage from '@/assets/forest-property-1.jpg';
+import forestImage from '@/assets/image4.jpeg';
+import { submitContactForm } from '@/lib/api';
 
 const Contact = () => {
   const [formData, setFormData] = useState({
@@ -14,30 +15,51 @@ const Contact = () => {
     phone: '',
     message: '',
   });
+  const [isSubmitting, setIsSubmitting] = useState(false);
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    toast.success('Thank you! We will contact you soon.');
-    setFormData({ name: '', email: '', phone: '', message: '' });
+    setIsSubmitting(true);
+
+    try {
+      await submitContactForm({
+        name: formData.name,
+        email: formData.email,
+        phone: formData.phone,
+        message: formData.message,
+      });
+
+      toast.success('Thank you! We will contact you soon.');
+      setFormData({ name: '', email: '', phone: '', message: '' });
+    } catch (error) {
+      toast.error(error instanceof Error ? error.message : 'Failed to send message. Please try again.');
+    } finally {
+      setIsSubmitting(false);
+    }
   };
+
+
+  const directionsUrl = 'https://maps.app.goo.gl/3HJZMFT91Hw2Bv5HA?g_st=aw';
 
   const contactInfo = [
     {
       icon: Phone,
       title: 'Call Us',
-      details: ['+91 98765 43210', '+91 87654 32109'],
+      details: ['+91 93109 23418'],
       color: 'text-accent',
     },
     {
       icon: Mail,
       title: 'Email Us',
-      details: ['info@nextgenestate.com', 'properties@nextgenestate.com'],
+      details: ['Nextgenestateadvisors25@gmail.com'],
       color: 'text-primary',
     },
     {
       icon: MapPin,
       title: 'Visit Us',
-      details: ['Dehradun, Uttarakhand', 'India - 248001'],
+      details: ['Ramnagar · Nainital · Noida · Yamuna Expressway'],
+      link: directionsUrl,
+      linkLabel: 'Get Directions',
       color: 'text-accent',
     },
     {
@@ -48,14 +70,15 @@ const Contact = () => {
     },
   ];
 
-  const locations = [
-    { name: 'Dehradun', area: 'Main Office' },
-    { name: 'Nainital', area: 'Regional Office' },
-    { name: 'Mussoorie', area: 'Property Center' },
-    { name: 'Rishikesh', area: 'Sales Office' },
+  const locations: { name: string; area?: string }[] = [
+    { name: 'Ramnagar' },
+    { name: 'Nainital' },
+    { name: 'Noida' },
+    { name: 'Yamuna Expressway' },
   ];
 
   return (
+    <>
     <div className="min-h-screen pt-24">
       {/* Hero Section */}
       <section className="relative min-h-[50vh] flex items-center overflow-hidden mb-20">
@@ -69,8 +92,11 @@ const Contact = () => {
             src={forestImage}
             alt="Contact"
             className="w-full h-full object-cover"
+            style={{
+              filter: 'brightness(1.1) contrast(1.15) saturate(1.2)',
+            }}
           />
-          <div className="absolute inset-0 bg-gradient-to-r from-primary/90 via-primary/70 to-primary/50" />
+          <div className="absolute inset-0 bg-gradient-to-r from-primary/85 via-primary/65 to-primary/45" />
         </motion.div>
 
         <div className="container mx-auto px-4 relative z-10">
@@ -195,9 +221,14 @@ const Contact = () => {
                   <Button
                     type="submit"
                     size="lg"
+                    disabled={isSubmitting}
                     className="w-full gradient-gold text-foreground hover:shadow-gold transition-smooth font-semibold text-lg h-14"
                   >
-                    Send Message <Send className="ml-2" />
+                    {isSubmitting ? 'Sending...' : (
+                      <>
+                        Send Message <Send className="ml-2" />
+                      </>
+                    )}
                   </Button>
                 </motion.div>
               </form>
@@ -236,6 +267,28 @@ const Contact = () => {
                           {detail}
                         </p>
                       ))}
+                      {info.link && (
+                        <div className="flex flex-wrap gap-3 mt-4">
+                          <a
+                            href={info.link}
+                            target="_blank"
+                            rel="noreferrer"
+                            className="inline-flex items-center gap-2 px-4 py-2 rounded-lg bg-primary text-primary-foreground font-semibold hover:bg-primary/90 transition-smooth shadow-sm"
+                          >
+                            <Navigation className="w-4 h-4" />
+                            {info.linkLabel ?? 'Get Directions'}
+                          </a>
+                          <a
+                            href={info.link}
+                            target="_blank"
+                            rel="noreferrer"
+                            className="inline-flex items-center gap-2 px-4 py-2 rounded-lg border border-border text-foreground font-semibold hover:border-accent hover:text-accent transition-smooth"
+                          >
+                            <MapPin className="w-4 h-4" />
+                            View on Google Maps
+                          </a>
+                        </div>
+                      )}
                     </div>
                   </div>
                 </motion.div>
@@ -280,13 +333,15 @@ const Contact = () => {
                   <Globe className="w-8 h-8 text-foreground" />
                 </motion.div>
                 <h3 className="text-xl font-bold text-foreground mb-2">{location.name}</h3>
-                <p className="text-muted-foreground">{location.area}</p>
+                {location.area && <p className="text-muted-foreground">{location.area}</p>}
               </motion.div>
             ))}
           </div>
         </div>
       </section>
     </div>
+
+    </>
   );
 };
 
