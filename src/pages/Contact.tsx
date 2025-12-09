@@ -6,6 +6,7 @@ import { Input } from '@/components/ui/input';
 import { Textarea } from '@/components/ui/textarea';
 import { toast } from 'sonner';
 import forestImage from '@/assets/image4.jpeg';
+import { submitContactForm } from '@/lib/api';
 
 const Contact = () => {
   const [formData, setFormData] = useState({
@@ -14,11 +15,27 @@ const Contact = () => {
     phone: '',
     message: '',
   });
+  const [isSubmitting, setIsSubmitting] = useState(false);
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    toast.success('Thank you! We will contact you soon.');
-    setFormData({ name: '', email: '', phone: '', message: '' });
+    setIsSubmitting(true);
+
+    try {
+      await submitContactForm({
+        name: formData.name,
+        email: formData.email,
+        phone: formData.phone,
+        message: formData.message,
+      });
+
+      toast.success('Thank you! We will contact you soon.');
+      setFormData({ name: '', email: '', phone: '', message: '' });
+    } catch (error) {
+      toast.error(error instanceof Error ? error.message : 'Failed to send message. Please try again.');
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   const contactInfo = [
@@ -198,9 +215,14 @@ const Contact = () => {
                   <Button
                     type="submit"
                     size="lg"
+                    disabled={isSubmitting}
                     className="w-full gradient-gold text-foreground hover:shadow-gold transition-smooth font-semibold text-lg h-14"
                   >
-                    Send Message <Send className="ml-2" />
+                    {isSubmitting ? 'Sending...' : (
+                      <>
+                        Send Message <Send className="ml-2" />
+                      </>
+                    )}
                   </Button>
                 </motion.div>
               </form>

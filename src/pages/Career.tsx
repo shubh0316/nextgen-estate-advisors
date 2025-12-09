@@ -14,6 +14,7 @@ import {
 } from '@/components/ui/dialog';
 import heroImage from '@/assets/job.jpg';
 import { toast } from '@/hooks/use-toast';
+import { submitCareerApplication } from '@/lib/api';
 
 const Career = () => {
   const [isDialogOpen, setIsDialogOpen] = useState(false);
@@ -172,9 +173,17 @@ const Career = () => {
     e.preventDefault();
     setIsSubmitting(true);
 
-    // Simulate form submission
-    setTimeout(() => {
-      setIsSubmitting(false);
+    try {
+      await submitCareerApplication({
+        name: formData.name,
+        email: formData.email,
+        phone: formData.phone,
+        position: formData.position,
+        experience: formData.experience,
+        coverLetter: formData.coverLetter,
+        resume: formData.resume,
+      });
+
       toast({
         title: 'Application Submitted!',
         description: 'Thank you for your interest. We will review your application and get back to you soon.',
@@ -190,7 +199,15 @@ const Career = () => {
       });
       setSelectedJob(null);
       setIsDialogOpen(false);
-    }, 2000);
+    } catch (error) {
+      toast({
+        title: 'Error',
+        description: error instanceof Error ? error.message : 'Failed to submit application. Please try again.',
+        variant: 'destructive',
+      });
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   const handleApplyClick = (jobTitle: string) => {
