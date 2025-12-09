@@ -12,6 +12,7 @@ import {
   DialogTitle,
 } from '@/components/ui/dialog';
 import { toast } from '@/hooks/use-toast';
+import { submitContactForm } from '@/lib/api';
 
 interface ContactFormModalProps {
   open: boolean;
@@ -43,9 +44,15 @@ const ContactFormModal = ({
     e.preventDefault();
     setIsSubmitting(true);
 
-    // Simulate form submission
-    setTimeout(() => {
-      setIsSubmitting(false);
+    try {
+      await submitContactForm({
+        name: formData.name,
+        email: formData.email,
+        phone: formData.phone,
+        message: formData.message,
+        propertyName: propertyName,
+      });
+
       toast({
         title: 'Message Sent!',
         description: 'Thank you for contacting us. We will get back to you soon.',
@@ -57,7 +64,15 @@ const ContactFormModal = ({
         message: '',
       });
       onOpenChange(false);
-    }, 2000);
+    } catch (error) {
+      toast({
+        title: 'Error',
+        description: error instanceof Error ? error.message : 'Failed to send message. Please try again.',
+        variant: 'destructive',
+      });
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   return (
