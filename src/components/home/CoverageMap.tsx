@@ -49,8 +49,14 @@ const CoverageMap = () => {
   ];
 
   return (
-    <section className="py-24 bg-secondary/30 relative overflow-hidden">
-      <div className="container mx-auto px-4">
+    <section className="py-24 bg-gradient-to-br from-background via-secondary/20 to-background relative overflow-hidden">
+      {/* Background decorative elements */}
+      <div className="absolute inset-0 opacity-5">
+        <div className="absolute top-20 right-20 w-96 h-96 bg-primary rounded-full blur-3xl" />
+        <div className="absolute bottom-20 left-20 w-96 h-96 bg-accent rounded-full blur-3xl" />
+      </div>
+
+      <div className="container mx-auto px-4 relative z-10">
         <motion.div
           initial={{ opacity: 0, y: 50 }}
           whileInView={{ opacity: 1, y: 0 }}
@@ -67,14 +73,14 @@ const CoverageMap = () => {
           </p>
         </motion.div>
 
-        <div className="relative max-w-4xl mx-auto">
+        <div className="relative max-w-5xl mx-auto">
           {/* Map Container */}
           <motion.div
             initial={{ opacity: 0, scale: 0.9 }}
             whileInView={{ opacity: 1, scale: 1 }}
             viewport={{ once: true }}
             transition={{ duration: 1 }}
-            className="relative"
+            className="relative bg-gradient-to-br from-card/50 to-card rounded-3xl p-8 md:p-12 shadow-2xl border border-border/50 backdrop-blur-sm"
           >
             {/* India SVG Map */}
             <svg
@@ -86,24 +92,35 @@ const CoverageMap = () => {
               {/* Background glow */}
               <defs>
                 <filter id="glow" x="-50%" y="-50%" width="200%" height="200%">
-                  <feGaussianBlur stdDeviation="3" result="coloredBlur" />
+                  <feGaussianBlur stdDeviation="4" result="coloredBlur" />
                   <feMerge>
                     <feMergeNode in="coloredBlur" />
                     <feMergeNode in="SourceGraphic" />
                   </feMerge>
                 </filter>
                 <linearGradient id="mapGradient" x1="0%" y1="0%" x2="100%" y2="100%">
-                  <stop offset="0%" stopColor="hsl(var(--primary))" stopOpacity="0.3" />
-                  <stop offset="100%" stopColor="hsl(var(--accent))" stopOpacity="0.2" />
+                  <stop offset="0%" stopColor="hsl(var(--primary))" stopOpacity="0.4" />
+                  <stop offset="50%" stopColor="hsl(var(--primary))" stopOpacity="0.25" />
+                  <stop offset="100%" stopColor="hsl(var(--accent))" stopOpacity="0.3" />
                 </linearGradient>
+                <radialGradient id="pinGradient" cx="50%" cy="50%">
+                  <stop offset="0%" stopColor="hsl(var(--accent))" stopOpacity="0.8" />
+                  <stop offset="100%" stopColor="hsl(var(--primary))" stopOpacity="0.6" />
+                </radialGradient>
               </defs>
 
-              {/* India Outline - Simplified shape */}
+              {/* Grid pattern background */}
+              <pattern id="grid" width="40" height="40" patternUnits="userSpaceOnUse">
+                <path d="M 40 0 L 0 0 0 40" fill="none" stroke="hsl(var(--primary))" strokeWidth="0.5" opacity="0.1"/>
+              </pattern>
+              <rect width="100%" height="100%" fill="url(#grid)" />
+
+              {/* India Outline - Enhanced shape */}
               <motion.path
                 initial={{ pathLength: 0, opacity: 0 }}
                 whileInView={{ pathLength: 1, opacity: 1 }}
                 viewport={{ once: true }}
-                transition={{ duration: 2, ease: "easeInOut" }}
+                transition={{ duration: 2.5, ease: "easeInOut" }}
                 d="M150 50 
                    C200 40, 280 45, 350 60
                    C420 75, 480 100, 520 140
@@ -122,21 +139,21 @@ const CoverageMap = () => {
                    M450 300 L470 320 L490 300"
                 fill="url(#mapGradient)"
                 stroke="hsl(var(--primary))"
-                strokeWidth="2.5"
+                strokeWidth="3"
                 filter="url(#glow)"
-                className="drop-shadow-lg"
+                className="drop-shadow-2xl"
               />
 
-              {/* State boundaries (simplified) */}
+              {/* State boundaries (enhanced) */}
               <motion.path
-                initial={{ opacity: 0 }}
-                whileInView={{ opacity: 0.2 }}
+                initial={{ pathLength: 0, opacity: 0 }}
+                whileInView={{ pathLength: 1, opacity: 0.3 }}
                 viewport={{ once: true }}
-                transition={{ duration: 1, delay: 1 }}
+                transition={{ duration: 1.5, delay: 1 }}
                 d="M250 150 L280 200 L300 250 M350 200 L380 250 L400 300"
                 stroke="hsl(var(--primary))"
-                strokeWidth="1"
-                strokeDasharray="5,5"
+                strokeWidth="1.5"
+                strokeDasharray="8,4"
                 fill="none"
               />
             </svg>
@@ -158,32 +175,46 @@ const CoverageMap = () => {
                   whileHover={{ scale: 1.3 }}
                   className="relative cursor-pointer"
                 >
-                  {/* Pulse Effect */}
+                  {/* Pulse Effect - Multiple rings */}
                   <motion.div
-                    animate={{ scale: [1, 2, 1], opacity: [0.6, 0, 0.6] }}
+                    animate={{ scale: [1, 2.5, 1], opacity: [0.4, 0, 0.4] }}
                     transition={{ duration: 2, repeat: Infinity }}
-                    className="absolute inset-0 w-10 h-10 -m-2 rounded-full bg-accent/40"
+                    className="absolute inset-0 w-12 h-12 -m-3 rounded-full bg-accent/30"
+                  />
+                  <motion.div
+                    animate={{ scale: [1, 2, 1], opacity: [0.5, 0, 0.5] }}
+                    transition={{ duration: 2, repeat: Infinity, delay: 0.3 }}
+                    className="absolute inset-0 w-10 h-10 -m-2 rounded-full bg-primary/30"
                   />
                   
                   {/* Pin */}
-                  <div className="w-6 h-6 rounded-full bg-accent shadow-gold flex items-center justify-center border-2 border-background">
-                    <region.icon className="w-3 h-3 text-foreground" />
-                  </div>
+                  <motion.div 
+                    className="w-8 h-8 rounded-full bg-gradient-to-br from-accent to-primary shadow-lg flex items-center justify-center border-3 border-background relative z-10"
+                    whileHover={{ scale: 1.2, rotate: 360 }}
+                    transition={{ duration: 0.5 }}
+                  >
+                    <region.icon className="w-4 h-4 text-foreground drop-shadow-sm" />
+                  </motion.div>
 
                   {/* Tooltip */}
                   {activeRegion === index && (
                     <motion.div
                       initial={{ opacity: 0, y: 10, scale: 0.9 }}
                       animate={{ opacity: 1, y: 0, scale: 1 }}
-                      className="absolute bottom-full left-1/2 -translate-x-1/2 mb-3 w-52 bg-background rounded-xl p-4 shadow-elegant border border-border z-20"
+                      className="absolute bottom-full left-1/2 -translate-x-1/2 mb-4 w-56 bg-gradient-to-br from-background to-card rounded-2xl p-5 shadow-2xl border-2 border-accent/30 z-20 backdrop-blur-md"
                     >
-                      <h4 className="font-bold text-foreground mb-1">{region.name}</h4>
+                      <div className="flex items-center gap-2 mb-2">
+                        <div className="w-8 h-8 rounded-lg bg-gradient-to-br from-accent/20 to-primary/20 flex items-center justify-center">
+                          <region.icon className="w-4 h-4 text-accent" />
+                        </div>
+                        <h4 className="font-bold text-foreground text-lg">{region.name}</h4>
+                      </div>
                       <p className="text-sm text-accent font-semibold mb-2">{region.properties}</p>
-                      <p className="text-xs text-muted-foreground mb-2">{region.highlight}</p>
-                      <span className="inline-block text-xs bg-primary/10 text-primary px-2 py-1 rounded-full">
+                      <p className="text-xs text-muted-foreground mb-3 leading-relaxed">{region.highlight}</p>
+                      <span className="inline-block text-xs bg-gradient-to-r from-primary/20 to-accent/20 text-primary px-3 py-1.5 rounded-full font-semibold border border-primary/30">
                         {region.type}
                       </span>
-                      <div className="absolute bottom-0 left-1/2 -translate-x-1/2 translate-y-1/2 rotate-45 w-3 h-3 bg-background border-r border-b border-border" />
+                      <div className="absolute bottom-0 left-1/2 -translate-x-1/2 translate-y-1/2 rotate-45 w-4 h-4 bg-background border-r-2 border-b-2 border-accent/30" />
                     </motion.div>
                   )}
                 </motion.div>
@@ -192,7 +223,7 @@ const CoverageMap = () => {
           </motion.div>
 
           {/* Region Legend */}
-          <div className="grid grid-cols-2 md:grid-cols-3 gap-4 mt-12">
+          <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-4 mt-12">
             {regions.map((region, index) => (
               <motion.div
                 key={index}
@@ -200,24 +231,30 @@ const CoverageMap = () => {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ duration: 0.5, delay: index * 0.1 }}
-                whileHover={{ scale: 1.05, backgroundColor: 'hsl(var(--accent) / 0.1)' }}
-                className={`flex items-center gap-3 p-4 rounded-xl cursor-pointer transition-all border ${
+                whileHover={{ scale: 1.05, y: -5 }}
+                className={`flex flex-col items-center gap-3 p-5 rounded-2xl cursor-pointer transition-all border-2 ${
                   activeRegion === index 
-                    ? 'bg-accent/20 border-accent/50' 
-                    : 'bg-background/50 border-border/50 hover:border-accent/30'
+                    ? 'bg-gradient-to-br from-accent/20 to-primary/20 border-accent shadow-lg' 
+                    : 'bg-gradient-to-br from-background/80 to-card/50 border-border/50 hover:border-accent/50 hover:shadow-md'
                 }`}
                 onMouseEnter={() => setActiveRegion(index)}
                 onMouseLeave={() => setActiveRegion(null)}
               >
-                <div className={`w-10 h-10 rounded-lg flex items-center justify-center transition-colors ${
-                  activeRegion === index ? 'bg-accent/30' : 'bg-primary/10'
-                }`}>
-                  <region.icon className={`w-5 h-5 transition-colors ${
-                    activeRegion === index ? 'text-accent' : 'text-primary'
+                <motion.div 
+                  className={`w-14 h-14 rounded-xl flex items-center justify-center transition-all shadow-md ${
+                    activeRegion === index 
+                      ? 'bg-gradient-to-br from-accent to-primary scale-110' 
+                      : 'bg-gradient-to-br from-primary/20 to-accent/20'
+                  }`}
+                  whileHover={{ rotate: 360 }}
+                  transition={{ duration: 0.6 }}
+                >
+                  <region.icon className={`w-7 h-7 transition-colors ${
+                    activeRegion === index ? 'text-foreground' : 'text-primary'
                   }`} />
-                </div>
-                <div>
-                  <p className="font-semibold text-foreground">{region.name}</p>
+                </motion.div>
+                <div className="text-center">
+                  <p className="font-bold text-foreground text-sm mb-1">{region.name}</p>
                   <p className="text-xs text-muted-foreground">{region.properties}</p>
                 </div>
               </motion.div>
