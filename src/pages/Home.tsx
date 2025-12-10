@@ -17,7 +17,7 @@ import CoverageMap from '@/components/home/CoverageMap';
 
 const Home = () => {
   const [displayedText, setDisplayedText] = useState('');
-  const fullText = 'Real estate experts for mountains and Delhi-NCR.';
+  const fullText = 'Real estate experts for hill stations and Delhi-NCR.';
   const [isTypingComplete, setIsTypingComplete] = useState(false);
   const [isInHeroSection, setIsInHeroSection] = useState(true);
   

@@ -16,7 +16,7 @@ import rivershoreImage from '@/assets/rivershore.jpeg';
 import naturesVillageImage from '@/assets/naturesvillage.jpeg';
 import onefngImage from '@/assets/onefng.jpeg';
 import oasisGrandImage from '@/assets/oasisgrand.jpeg';
-import gygyImage from '@/assets/gygy.jpeg';
+import gygyImage from '@/assets/gygy1.png';
 import uniwestImage from '@/assets/uniwest.png';
 import auaspireImage from '@/assets/auaspire.png';
 import { Button } from '@/components/ui/button';

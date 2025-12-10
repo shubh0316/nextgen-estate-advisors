@@ -57,7 +57,7 @@ const Contact = () => {
     {
       icon: MapPin,
       title: 'Visit Us',
-      details: ['Ramnagar · Nainital · Noida · Yamuna Expressway'],
+      details: ['Ramnagar · Nainital · Uttarakhand · Noida · Yamuna Expressway'],
       link: directionsUrl,
       linkLabel: 'Get Directions',
       color: 'text-accent',
@@ -115,7 +115,7 @@ const Contact = () => {
               transition={{ duration: 1, delay: 0.3 }}
             />
             <p className="text-2xl text-white/90 max-w-2xl">
-              Let's discuss your dream property in Uttarakhand
+              Let's discuss your dream property in Uttarakhand and Delhi NCR
             </p>
           </motion.div>
         </div>
