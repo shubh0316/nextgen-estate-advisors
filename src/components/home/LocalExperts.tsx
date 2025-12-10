@@ -25,7 +25,7 @@ const LocalExperts = () => {
       speciality: 'Builder relation and sales',
       image: raviSinghImage,
       phone: '9310923418',
-      email: 'Nextgenestateadvisors25@gmail.com',
+      email: 'nextgenestateadvisors25@gmail.com',
     },
     {
       name: 'Raman Singh',
@@ -48,6 +48,13 @@ const LocalExperts = () => {
       email: 'sumitkumarsk6677809@gmail.com',
     },
   ];
+
+  // Set initial slide to Ravi Singh (index 0)
+  useEffect(() => {
+    if (api) {
+      api.scrollTo(0);
+    }
+  }, [api]);
 
   // Auto-scroll carousel: alternate direction every 2 seconds
   useEffect(() => {

@@ -1,6 +1,6 @@
 import { motion } from 'framer-motion';
 import { useState } from 'react';
-import { Mail, Phone, MapPin, Send, Clock, Globe, Navigation } from 'lucide-react';
+import { Mail, Phone, MapPin, Send, Clock, Globe, Navigation, Mountain, Building2, TreePine } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Textarea } from '@/components/ui/textarea';
@@ -46,12 +46,14 @@ const Contact = () => {
       icon: Phone,
       title: 'Call Us',
       details: ['+91 93109 23418'],
+      phoneLink: 'tel:+919310923418',
       color: 'text-accent',
     },
     {
       icon: Mail,
       title: 'Email Us',
-      details: ['Nextgenestateadvisors25@gmail.com'],
+      details: ['nextgenestateadvisors25@gmail.com'],
+      emailLink: 'mailto:nextgenestateadvisors25@gmail.com',
       color: 'text-primary',
     },
     {
@@ -70,11 +72,11 @@ const Contact = () => {
     },
   ];
 
-  const locations: { name: string; area?: string }[] = [
-    { name: 'Ramnagar' },
-    { name: 'Nainital' },
-    { name: 'Noida' },
-    { name: 'Yamuna Expressway' },
+  const locations: { name: string; area?: string; icon: any }[] = [
+    { name: 'Ramnagar', icon: TreePine },
+    { name: 'Nainital', icon: Mountain },
+    { name: 'Noida', icon: Building2 },
+    { name: 'Yamuna Expressway', icon: Building2 },
   ];
 
   return (
@@ -174,7 +176,8 @@ const Contact = () => {
                     onChange={(e) => setFormData({ ...formData, email: e.target.value })}
                     placeholder="john@example.com"
                     required
-                    className="h-14 text-lg"
+                    className="h-14 text-lg overflow-hidden text-ellipsis"
+                    style={{ textOverflow: 'ellipsis', overflow: 'hidden', whiteSpace: 'nowrap' }}
                   />
                 </motion.div>
 
@@ -260,13 +263,37 @@ const Contact = () => {
                     >
                       <info.icon className={`w-8 h-8 ${info.color}`} />
                     </motion.div>
-                    <div>
+                    <div className="flex-1 min-w-0 overflow-hidden">
                       <h3 className="text-2xl font-bold text-foreground mb-3">{info.title}</h3>
-                      {info.details.map((detail, idx) => (
-                        <p key={idx} className="text-muted-foreground text-lg leading-relaxed">
-                          {detail}
-                        </p>
-                      ))}
+                      {info.details.map((detail, idx) => {
+                        if (info.emailLink && idx === 0) {
+                          return (
+                            <a
+                              key={idx}
+                              href={info.emailLink}
+                              className="text-muted-foreground text-xs sm:text-sm md:text-base lg:text-lg leading-relaxed break-all hover:text-primary transition-colors block w-full"
+                            >
+                              {detail}
+                            </a>
+                          );
+                        } else if (info.phoneLink && idx === 0) {
+                          return (
+                            <a
+                              key={idx}
+                              href={info.phoneLink}
+                              className="text-muted-foreground text-lg leading-relaxed break-words overflow-wrap-anywhere hover:text-accent transition-colors inline-block"
+                            >
+                              {detail}
+                            </a>
+                          );
+                        } else {
+                          return (
+                            <p key={idx} className="text-muted-foreground text-sm sm:text-base md:text-lg leading-relaxed break-words overflow-wrap-anywhere">
+                              {detail}
+                            </p>
+                          );
+                        }
+                      })}
                       {info.link && (
                         <div className="flex flex-wrap gap-3 mt-4">
                           <a
@@ -330,7 +357,7 @@ const Contact = () => {
                   transition={{ duration: 0.6 }}
                   className="w-16 h-16 bg-gradient-gold rounded-full flex items-center justify-center mx-auto mb-4"
                 >
-                  <Globe className="w-8 h-8 text-foreground" />
+                  <location.icon className="w-8 h-8 text-foreground" />
                 </motion.div>
                 <h3 className="text-xl font-bold text-foreground mb-2">{location.name}</h3>
                 {location.area && <p className="text-muted-foreground">{location.area}</p>}

@@ -80,18 +80,18 @@ const StatCard = ({ stat, index }: { stat: any; index: number }) => {
       whileHover={{ y: -10 }}
       className="group"
     >
-      <div className="bg-secondary/50 rounded-2xl p-8 text-center border border-border/50 hover:border-accent/50 transition-all duration-500 hover:shadow-gold">
+      <div className="bg-secondary/50 rounded-2xl p-6 md:p-8 text-center border border-border/50 hover:border-accent/50 transition-all duration-500 hover:shadow-gold h-full flex flex-col items-center justify-center min-h-[200px]">
         <motion.div
           whileHover={{ rotate: 360 }}
           transition={{ duration: 0.6 }}
-          className="w-16 h-16 rounded-xl bg-primary/10 flex items-center justify-center mx-auto mb-6 group-hover:bg-accent/20"
+          className="w-16 h-16 rounded-xl bg-primary/10 flex items-center justify-center mx-auto mb-6 group-hover:bg-accent/20 flex-shrink-0"
         >
           <stat.icon className="w-8 h-8 text-primary group-hover:text-accent transition-colors" />
         </motion.div>
-        <div className="text-3xl md:text-4xl font-bold text-foreground mb-2 whitespace-nowrap">
+        <div className="text-2xl md:text-3xl lg:text-4xl font-bold text-foreground mb-2 break-words px-2">
           {stat.prefix}{count}{stat.suffix}
         </div>
-        <div className="text-muted-foreground font-medium text-sm">{stat.label}</div>
+        <div className="text-muted-foreground font-medium text-xs md:text-sm break-words px-2">{stat.label}</div>
       </div>
     </motion.div>
   );
