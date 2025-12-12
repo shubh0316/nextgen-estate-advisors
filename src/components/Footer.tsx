@@ -50,7 +50,8 @@ const Footer = () => {
           transition={{ duration: 0.6, delay: 0.4 }}
           className="pt-8 border-t border-primary-foreground/20"
         >
-          <div className="flex justify-center items-center text-primary-foreground/60 text-sm">
+          <div className="flex flex-col justify-center items-center text-primary-foreground/60 text-sm gap-2">
+            <p>A-157, Sector-72, Noida Lc Client: 201301</p>
             <p>© {new Date().getFullYear()} Nextgen Estate Advisors Pvt. Ltd. All rights reserved.</p>
           </div>
         </motion.div>
