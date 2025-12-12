@@ -122,8 +122,7 @@ const About = () => {
               viewport={{ once: true }}
               transition={{ duration: 0.8, delay: 0.4 }}
             >
-              Your trusted partner for premium nature-focused real estate across Uttarakhand's 
-              most pristine locations
+             Premium nature-centric real estate across Uttarakhand and Delhi NCR — guided by a partner you can trust.
             </motion.p>
           </motion.div>
         </div>
@@ -165,9 +164,7 @@ const About = () => {
                 viewport={{ once: true }}
                 transition={{ duration: 0.8, delay: 0.2 }}
               >
-                Nextgen Estate  Advisors Pvt. Ltd. specializes in premium residential, 
-                commercial, and investment properties with a unique focus on Uttarakhand's 
-                natural landscapes.
+              Nextgen Estate Advisors Pvt. Ltd. specializes in premium residential, commercial, and investment properties with a unique focus on Uttarakhand’s natural landscapes and the vibrant real estate markets of Delhi NCR.
               </motion.p>
               <motion.p 
                 className="text-xl text-muted-foreground mb-6 leading-relaxed"

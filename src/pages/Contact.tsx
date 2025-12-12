@@ -45,7 +45,7 @@ const Contact = () => {
     {
       icon: Phone,
       title: 'Call Us',
-      details: ['+91 93109 23418'],
+      details: ['+91 75031 23418', '+91 93109 23418'],
       phoneLink: 'tel:+919310923418',
       color: 'text-accent',
     },
